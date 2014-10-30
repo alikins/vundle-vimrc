@@ -2,21 +2,25 @@
 set nocompatible
 filetype off
 
+"set verbosefile=~/.vim/log/verbose.log
+"set verbose=1
+
 set rtp+=~/.vim/bundle/Vundle.vim/
 call vundle#begin()
 
 " let Vundle manage Vundle
 " " required! 
-Bundle 'gmarik/vundle'
+Plugin 'gmarik/vundle'
 
 " ack.vim
-Bundle 'mileszs/ack.vim'
+Plugin 'mileszs/ack.vim'
 " Ack for word under cursor
 " http://vimbits.com/bits/19
 nnoremap <leader>a *<C-o>:AckFromSearch!<CR>
+let g:ack_default_options = " -H --nocolor --nogroup --column"
 
 " syntastic
-Bundle 'scrooloose/syntastic'
+Plugin 'scrooloose/syntastic'
 let g:syntastic_enable_signs=1
 let g:syntastic_check_on_open=1
 "let g:syntastic_enable_balloons=1
@@ -24,54 +28,92 @@ let g:syntastic_enable_highlighting=1
 let g:syntastic_mode_map = { 'mode': 'active',
             \ 'active_filetypes': ['ruby','python', 'sh'],
             \ 'passive_filetypes': ['puppet'] }
-"let g:syntastic_python_checker_args='--ignore=E501,E121,E122,E123,E124,E125,E126,E127,E128'
-"let g:syntastic_python_checkers = ['flake8', 'pyqver']
+let g:syntastic_python_checker_args='--ignore=E501,E121,E122,E123,E124,E125,E126,E127,E128'
+let g:syntastic_python_checkers = ['flake8', 'pyqver']
 let g:syntastic_enabled_highlighting=1
+let g:syntastic_java_checkstyle_classpath = 'checkstyle-5.7-all.jar'
+"let g:syntastic_java_javac_autoload_maven_classpath=0
+"let g:syntastic_java_javac_config_file_enabled=0
+let g:syntastic_java_checkers = ['javac', 'checkstyle']
+let g:syntastic_java_checkstyle_conf_file='/home/adrian/.checkstyle'
+let g:syntastic_java_javac_custom_classpath_command = "buildr -s syntastic:echo"
 
-Bundle 'scrooloose/nerdcommenter'
+Plugin 'scrooloose/nerdcommenter'
 
-Bundle 'jeetsukumaran/vim-buffergator'
+
+Plugin 'bogado/file-line'
+Plugin 'alikins/vim-fix-git-diff-path'
+Plugin 'airblade/vim-rooter'
+Plugin 'tpope/vim-git'
+Plugin 'vim-ruby/vim-ruby'
+Plugin 'ajf/puppet-vim'
+Plugin 'pangloss/vim-javascript'
+Plugin 'wgwoods/vim-scripts', {'name': 'vim-wgwoods-fedora'}
+Plugin 'alikins/vim-buildr'
+Plugin 'bling/vim-airline'
+
+Plugin 'klen/python-mode'
+" disable python folding
+let g:pymode_folding = 0
+let g:pymode_lint = 0
+let g:pymode_doc = 0
+let g:pymode_rope_complete_on_dot = 0
+" Key for set/unset breakpoint
+" \b conflicts with buffergator
+let g:pymode_breakpoint_bind = '<leader>B'
+
+Plugin 'jeetsukumaran/vim-buffergator'
 " toggle instead of open to match nerdtree and tabbar patters
 nnoremap <silent> <Leader>b :BuffergatorToggle<CR>
 nnoremap <silent> <Leader>t :BuffergatorTabsToggle<CR>
 
-Bundle 'bogado/file-line'
-Bundle 'alikins/vim-fix-git-diff-path'
-Bundle 'airblade/vim-rooter'
-Bundle 'tpope/vim-git'
-Bundle 'vim-ruby/vim-ruby'
-Bundle 'ajf/puppet-vim'
-Bundle 'pangloss/vim-javascript'
-Bundle 'wgwoods/vim-scripts'
-Bundle 'alikins/vim-buildr'
-Bundle 'bling/vim-airline'
+Plugin 'kien/ctrlp.vim'
+"let g:ctrlp_map = "<c-p>"
+let g:ctrlp_cmd = 'CtrlPMixed'
+" open ctrl-P in dir of current file
+let g:ctrlp_working_path_mode = 1
+let g:ctrlp_working_path_mode = 'ra'
+let g:ctrlp_use_caching = 1
+let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files']
+"let g:ctrlp_clear_cache_on_exit = 0
+" which ctrl-p extensions to use
+"let g:ctrlp_extensions = ['buffertag', 'quickfix', 'dir', 'rtscript',
+"                         \ 'undo', 'line', 'changes', 'cmdline', 'menu',
+"                         \ 'bookmarkdir']
 
-Bundle 'klen/python-mode'
-" disable python folding
-let g:pymode_folding = 0
-let g:pymode_lint = 0
-
-Bundle 'mattn/webapi-vim'
-Bundle 'mmozuras/vim-github-comment'
+" under review
+Plugin 'mattn/webapi-vim'
+Plugin 'mmozuras/vim-github-comment'
 let g:github_user = 'alikins'
 
-Bundle 'junkblocker/patchreview-vim'
-"Bundle 'Valloric/YouCompleteMe'
+Plugin 'junkblocker/patchreview-vim'
+"Plugin 'Valloric/YouCompleteMe'
 
-"Bundle 'ameade/qtpy-vim'
+"Plugin 'ameade/qtpy-vim'
 
-Bundle 'JarrodCTaylor/vim-python-test-runner'
+Plugin 'JarrodCTaylor/vim-python-test-runner'
 
 "https://github.com/lamndalisure/nose.vom
 "A simple compiler for using nosetests on VIM
-Bundle 'lambdalisue/nose.vim'
+Plugin 'lambdalisue/nose.vim'
 
 "https://github.com/mattboehm/vim-unstack
 "Vim plugin for parsing stack traces and opening the files
-Bundle 'mattboehm/vim-unstack'
+Plugin 'mattboehm/vim-unstack'
 
 "https://github.com/alfredodeza/coveragepy.vim
-Bundle 'alfredodeza/coveragepy.vim'
+Plugin 'alfredodeza/coveragepy.vim'
+
+"https://github.com/milkypostman/vim-togglelist
+" allows <leader>q to toggle quickfix (ack, etc)
+Plugin 'milkypostman/vim-togglelist'
+
+
+" color schems
+Plugin 'altercation/vim-colors-solarized'
+Plugin 'tomasr/molokai'
+
+
 
 call vundle#end()
 
@@ -79,8 +121,11 @@ filetype plugin indent on
 
 " Key for set/unset breakpoint
 " \b conflicts with buffergator
-let g:pymode_breakpoint_key = '<leader>B'
+let g:pymode_breakpoint_bind = '<leader>B'
+nnoremap <silent> <Leader>b :BuffergatorToggle<CR>
 
+" unstack uses <Leader>s, undo that and use \st
+let g:unstack_mapkey = '<Leader>st'
 set nonumber
 set autoindent
 set tabstop=4
@@ -139,8 +184,13 @@ set incsearch   " incremental searching
 set ignorecase  " searches are case insensitive...
 set smartcase   " ... unless they contain at least one capital letter
 
-set backupdir=~/.vimtmp/_backup//    " where to put backup files.
-set directory=~/.vimtmp/_temp//      " where to put swap files.
+" various backup and temp dirs
+set backupdir=~/.vim/state/backup//    " where to put backup files.
+set directory=~/.vim/state/tmp//      " where to put swap files.
+set undodir=~/.vim/state/undo//         " where to put undo files
+
+
+colorscheme molokai
 
 highlight! link DiffText MatchParen
 highlight DiffAdd    cterm=bold ctermfg=10 ctermbg=17 gui=none guifg=bg guibg=Red

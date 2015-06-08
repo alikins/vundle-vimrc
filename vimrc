@@ -28,8 +28,8 @@ let g:syntastic_enable_highlighting=1
 let g:syntastic_mode_map = { 'mode': 'active',
             \ 'active_filetypes': ['ruby','python', 'sh'],
             \ 'passive_filetypes': ['puppet'] }
-let g:syntastic_python_checker_args='--ignore=E501,E121,E122,E123,E124,E125,E126,E127,E128'
-let g:syntastic_python_checkers = ['flake8', 'pyqver']
+"let g:syntastic_python_checker_args='--ignore=E501,E121,E122,E123,E124,E125,E126,E127,E128'
+let g:syntastic_python_checkers = ['flake8']
 let g:syntastic_enabled_highlighting=1
 let g:syntastic_java_checkstyle_classpath = 'checkstyle-5.7-all.jar'
 "let g:syntastic_java_javac_autoload_maven_classpath=0
@@ -37,9 +37,6 @@ let g:syntastic_java_checkstyle_classpath = 'checkstyle-5.7-all.jar'
 let g:syntastic_java_checkers = ['javac', 'checkstyle']
 let g:syntastic_java_checkstyle_conf_file='/home/adrian/.checkstyle'
 let g:syntastic_java_javac_custom_classpath_command = "buildr -s syntastic:echo"
-
-Plugin 'scrooloose/nerdcommenter'
-
 
 Plugin 'bogado/file-line'
 Plugin 'alikins/vim-fix-git-diff-path'
@@ -62,7 +59,9 @@ let g:pymode_rope_complete_on_dot = 0
 " \b conflicts with buffergator
 let g:pymode_breakpoint_bind = '<leader>B'
 
-Plugin 'jeetsukumaran/vim-buffergator'
+Bundle 'scrooloose/nerdcommenter'
+
+Bundle 'jeetsukumaran/vim-buffergator'
 " toggle instead of open to match nerdtree and tabbar patters
 nnoremap <silent> <Leader>b :BuffergatorToggle<CR>
 nnoremap <silent> <Leader>t :BuffergatorTabsToggle<CR>
@@ -114,6 +113,23 @@ Plugin 'altercation/vim-colors-solarized'
 Plugin 'tomasr/molokai'
 
 
+
+" http://usevim.com/2014/10/20/incsearch/
+"httpa://github.com/haya14busa/incsearch.vim
+Plugin 'haya14busa/incsearch.vim'
+map /  <Plug>(incsearch-forward)
+map ?  <Plug>(incsearch-backward)
+map g/ <Plug>(incsearch-stay)
+
+"
+" Auditions
+"   Various plugins I'm trying out.
+"
+"https://github.com/tpope/vim-haystack
+Plugin 'tpope/vim-haystack'
+
+"https://github.com/PeterRincker/vim-bumblebee
+Plugin 'PeterRincker/vim-bumblebee'
 
 call vundle#end()
 

@@ -10,7 +10,7 @@ call vundle#begin()
 
 " let Vundle manage Vundle
 " " required! 
-Plugin 'gmarik/vundle'
+Plugin 'gmarik/vundle.vim'
 
 " ack.vim
 Plugin 'mileszs/ack.vim'

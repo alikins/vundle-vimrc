@@ -10,7 +10,7 @@ call vundle#begin()
 
 " let Vundle manage Vundle
 " " required! 
-Plugin 'gmarik/vundle.vim'
+Plugin 'gmarik/Vundle.vim'
 
 " ack.vim
 Plugin 'mileszs/ack.vim'
@@ -72,9 +72,9 @@ let g:pymode_rope_complete_on_dot = 0
 " \b conflicts with buffergator
 let g:pymode_breakpoint_bind = '<leader>B'
 
-Bundle 'scrooloose/nerdcommenter'
+Plugin 'scrooloose/nerdcommenter'
 
-Bundle 'jeetsukumaran/vim-buffergator'
+Plugin 'jeetsukumaran/vim-buffergator'
 
 " toggle instead of open to match nerdtree and tabbar patters
 let g:buffergator_suppress_keymaps = 1
@@ -99,24 +99,6 @@ let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files']
 Plugin 'mattn/webapi-vim'
 Plugin 'mmozuras/vim-github-comment'
 let g:github_user = 'alikins'
-
-Plugin 'junkblocker/patchreview-vim'
-"Plugin 'Valloric/YouCompleteMe'
-
-"Plugin 'ameade/qtpy-vim'
-
-Plugin 'JarrodCTaylor/vim-python-test-runner'
-
-"https://github.com/lamndalisure/nose.vom
-"A simple compiler for using nosetests on VIM
-Plugin 'lambdalisue/nose.vim'
-
-"https://github.com/mattboehm/vim-unstack
-"Vim plugin for parsing stack traces and opening the files
-Plugin 'mattboehm/vim-unstack'
-
-"https://github.com/alfredodeza/coveragepy.vim
-Plugin 'alfredodeza/coveragepy.vim'
 
 "https://github.com/milkypostman/vim-togglelist
 " allows <leader>q to toggle quickfix (ack, etc)
@@ -155,10 +137,9 @@ Plugin 'robbles/logstash.vim'
 " http://vimcasts.org/episodes/project-wide-find-and-replace/
 Plugin 'Peeja/vim-cdo'
 
-" color schems
+" color schemes
 Plugin 'altercation/vim-colors-solarized'
 Plugin 'tomasr/molokai'
-
 
 
 " http://usevim.com/2014/10/20/incsearch/
@@ -170,13 +151,31 @@ map g/ <Plug>(incsearch-stay)
 
 "
 " Auditions
-"   Various plugins I'm trying out.
+"   Various plugins I'm trying out but don't use much.
 "
 "https://github.com/tpope/vim-haystack
 Plugin 'tpope/vim-haystack'
 
 "https://github.com/PeterRincker/vim-bumblebee
 Plugin 'PeterRincker/vim-bumblebee'
+
+Plugin 'junkblocker/patchreview-vim'
+"Plugin 'Valloric/YouCompleteMe'
+
+"Plugin 'ameade/qtpy-vim'
+
+Plugin 'JarrodCTaylor/vim-python-test-runner'
+
+"https://github.com/lamndalisure/nose.vom
+"A simple compiler for using nosetests on VIM
+Plugin 'lambdalisue/nose.vim'
+
+"https://github.com/mattboehm/vim-unstack
+"Vim plugin for parsing stack traces and opening the files
+Plugin 'mattboehm/vim-unstack'
+
+"https://github.com/alfredodeza/coveragepy.vim
+Plugin 'alfredodeza/coveragepy.vim'
 
 call vundle#end()
 
@@ -189,6 +188,7 @@ nnoremap <silent> <Leader>b :BuffergatorToggle<CR>
 
 " unstack uses <Leader>s, undo that and use \st
 let g:unstack_mapkey = '<Leader>st'
+
 set nonumber
 set autoindent
 set tabstop=4

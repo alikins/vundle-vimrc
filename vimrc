@@ -10,7 +10,7 @@ call vundle#begin()
 
 " let Vundle manage Vundle
 " " required! 
-Plugin 'gmarik/vundle'
+Plugin 'gmarik/vundle.vim'
 
 " ack.vim
 Plugin 'mileszs/ack.vim'
@@ -18,6 +18,11 @@ Plugin 'mileszs/ack.vim'
 " http://vimbits.com/bits/19
 nnoremap <leader>a *<C-o>:AckFromSearch!<CR>
 let g:ack_default_options = " -H --nocolor --nogroup --column"
+" 'q' in quickfix window closes it
+" Note that <f6> and <f7> map to cnext/cprev, aka next/prev quickfix items
+" TODO: add global keymap to do it
+
+
 
 " syntastic
 Plugin 'scrooloose/syntastic'
@@ -26,11 +31,13 @@ let g:syntastic_check_on_open=1
 "let g:syntastic_enable_balloons=1
 let g:syntastic_enable_highlighting=1
 let g:syntastic_mode_map = { 'mode': 'active',
-            \ 'active_filetypes': ['ruby','python', 'sh'],
-            \ 'passive_filetypes': ['puppet'] }
+                           \ 'active_filetypes': ['ruby','python', 'sh', 'puppet'],
+                           \ 'passive_filetypes': [] }
+
 let g:syntastic_python_checker_args='--ignore=E501,E121,E122,E123,E124,E125,E126,E127,E128'
-let g:syntastic_python_checkers = ['flake8', 'pyqver']
-let g:syntastic_enabled_highlighting=1
+"let g:syntastic_python_checkers = ['flake8', 'pylint', 'pyqver']
+let g:syntastic_python_checkers = ['flake8']
+
 let g:syntastic_java_checkstyle_classpath = 'checkstyle-5.7-all.jar'
 "let g:syntastic_java_javac_autoload_maven_classpath=0
 "let g:syntastic_java_javac_config_file_enabled=0
@@ -38,6 +45,7 @@ let g:syntastic_java_checkers = ['javac', 'checkstyle']
 let g:syntastic_java_checkstyle_conf_file='/home/adrian/.checkstyle'
 let g:syntastic_java_javac_custom_classpath_command = "buildr -s syntastic:echo"
 
+"let g:syntastic_puppet_puppetlint
 Plugin 'scrooloose/nerdcommenter'
 
 
@@ -46,7 +54,7 @@ Plugin 'alikins/vim-fix-git-diff-path'
 Plugin 'airblade/vim-rooter'
 Plugin 'tpope/vim-git'
 Plugin 'vim-ruby/vim-ruby'
-Plugin 'ajf/puppet-vim'
+"Plugin 'ajf/puppet-vim'
 Plugin 'pangloss/vim-javascript'
 Plugin 'wgwoods/vim-scripts', {'name': 'vim-wgwoods-fedora'}
 Plugin 'alikins/vim-buildr'
@@ -62,8 +70,12 @@ let g:pymode_rope_complete_on_dot = 0
 " \b conflicts with buffergator
 let g:pymode_breakpoint_bind = '<leader>B'
 
+" too slow
+let g:pymode_rope_regenerate_on_write = 0
+
 Plugin 'jeetsukumaran/vim-buffergator'
 " toggle instead of open to match nerdtree and tabbar patters
+let g:buffergator_suppress_keymaps = 1
 nnoremap <silent> <Leader>b :BuffergatorToggle<CR>
 nnoremap <silent> <Leader>t :BuffergatorTabsToggle<CR>
 
@@ -108,6 +120,38 @@ Plugin 'alfredodeza/coveragepy.vim'
 " allows <leader>q to toggle quickfix (ack, etc)
 Plugin 'milkypostman/vim-togglelist'
 
+"https://github.com/majutsushi/tagbar
+Plugin 'majutsushi/tagbar'
+nmap <Leader>tb :TagbarToggle<CR>
+let g:tagbar_ctags_bin = '/usr/local/bin/ctags'
+let g:tagbar_type_puppet = {
+    \ 'ctagstype' : 'puppet',
+    \ 'kinds' : [
+    \ 'd:defination'
+    \   ],
+    \ 'sort' : 1,
+    \ }
+
+" puppet git@github.com:rodjek/vim-puppet.git
+Plugin 'rodjek/vim-puppet'
+
+" Track the engine.
+Plugin 'SirVer/ultisnips'
+"
+" " Snippets are separated from the engine. Add this if you want them:
+Plugin 'honza/vim-snippets'
+let g:UltiSnipsExpandTrigger="<c-tab>"
+let g:UltiSnipsListSnippets="<s-tab>"
+"let g:UltiSnipsJumpForwardTrigger="<c-j>"
+"let g:UltiSnipsJumpBackwardTrigger="<c-k>"
+
+"https://github.com/robbles/logstash.vim
+" syntax highlighting for logstash.conf
+Plugin 'robbles/logstash.vim'
+
+" https://github.com/Peeja/vim-cdo
+" http://vimcasts.org/episodes/project-wide-find-and-replace/
+Plugin 'Peeja/vim-cdo'
 
 " color schems
 Plugin 'altercation/vim-colors-solarized'
@@ -190,6 +234,9 @@ set directory=~/.vim/state/tmp//      " where to put swap files.
 set undodir=~/.vim/state/undo//         " where to put undo files
 
 
+" gah, folding stop stop stop
+set nofoldenable
+
 colorscheme molokai
 
 highlight! link DiffText MatchParen
@@ -229,6 +276,8 @@ filetype plugin indent on " Turn on filetype plugins (:help filetype-plugin)
 
 set laststatus=2  " always show the status bar
 
+highlight nonascii guibg=Red ctermbg=1 term=standout
+au BufReadPost * syntax match nonascii "[^\u0000-\u007F]"
 " Start the status line
 "set statusline=%f\ %m\ %r
 "set statusline+=Line:%l/%L[%p%%]

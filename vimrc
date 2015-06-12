@@ -96,10 +96,6 @@ let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files']
 "                         \ 'undo', 'line', 'changes', 'cmdline', 'menu',
 "                         \ 'bookmarkdir']
 
-" under review
-Plugin 'mattn/webapi-vim'
-Plugin 'mmozuras/vim-github-comment'
-let g:github_user = 'alikins'
 
 "https://github.com/milkypostman/vim-togglelist
 " allows <leader>q to toggle quickfix (ack, etc)
@@ -138,11 +134,6 @@ Plugin 'robbles/logstash.vim'
 " http://vimcasts.org/episodes/project-wide-find-and-replace/
 Plugin 'Peeja/vim-cdo'
 
-" color schemes
-Plugin 'altercation/vim-colors-solarized'
-Plugin 'tomasr/molokai'
-
-
 " http://usevim.com/2014/10/20/incsearch/
 "httpa://github.com/haya14busa/incsearch.vim
 Plugin 'haya14busa/incsearch.vim'
@@ -150,10 +141,20 @@ map /  <Plug>(incsearch-forward)
 map ?  <Plug>(incsearch-backward)
 map g/ <Plug>(incsearch-stay)
 
+" https://github.com/Peeja/vim-cdo
+" http://vimcasts.org/episodes/project-wide-find-and-replace/
+Plugin 'Peeja/vim-cdo'
+
+
 "
 " Auditions
 "   Various plugins I'm trying out but don't use much.
 "
+" under review
+Plugin 'mattn/webapi-vim'
+Plugin 'mmozuras/vim-github-comment'
+let g:github_user = 'alikins'
+
 "https://github.com/tpope/vim-haystack
 Plugin 'tpope/vim-haystack'
 
@@ -178,10 +179,6 @@ Plugin 'mattboehm/vim-unstack'
 "https://github.com/alfredodeza/coveragepy.vim
 Plugin 'alfredodeza/coveragepy.vim'
 
-"https://github.com/milkypostman/vim-togglelist
-" allows <leader>q to toggle quickfix (ack, etc)
-Plugin 'milkypostman/vim-togglelist'
-
 "https://github.com/majutsushi/tagbar
 Plugin 'majutsushi/tagbar'
 nmap <Leader>tb :TagbarToggle<CR>
@@ -210,10 +207,6 @@ let g:UltiSnipsListSnippets="<s-tab>"
 "https://github.com/robbles/logstash.vim
 " syntax highlighting for logstash.conf
 Plugin 'robbles/logstash.vim'
-
-" https://github.com/Peeja/vim-cdo
-" http://vimcasts.org/episodes/project-wide-find-and-replace/
-Plugin 'Peeja/vim-cdo'
 
 " color schems
 Plugin 'altercation/vim-colors-solarized'

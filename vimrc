@@ -141,9 +141,6 @@ let g:tagbar_type_puppet = {
     \ 'sort' : 1,
     \ }
 
-" puppet git@github.com:rodjek/vim-puppet.git
-Plugin 'rodjek/vim-puppet'
-
 " Track the engine.
 Plugin 'SirVer/ultisnips'
 "
@@ -168,10 +165,6 @@ Plugin 'haya14busa/incsearch.vim'
 map /  <Plug>(incsearch-forward)
 map ?  <Plug>(incsearch-backward)
 map g/ <Plug>(incsearch-stay)
-
-" https://github.com/Peeja/vim-cdo
-" http://vimcasts.org/episodes/project-wide-find-and-replace/
-Plugin 'Peeja/vim-cdo'
 
 " fugitive, mostly for http://vi.stackexchange.com/a/3748
 Plugin 'tpope/vim-fugitive'
@@ -209,34 +202,8 @@ Plugin 'mattboehm/vim-unstack'
 "https://github.com/alfredodeza/coveragepy.vim
 Plugin 'alfredodeza/coveragepy.vim'
 
-"https://github.com/majutsushi/tagbar
-Plugin 'majutsushi/tagbar'
-nmap <Leader>tb :TagbarToggle<CR>
-let g:tagbar_ctags_bin = '/usr/local/bin/ctags'
-let g:tagbar_type_puppet = {
-    \ 'ctagstype' : 'puppet',
-    \ 'kinds' : [
-    \ 'd:defination'
-    \   ],
-    \ 'sort' : 1,
-    \ }
-
 " puppet git@github.com:rodjek/vim-puppet.git
 Plugin 'rodjek/vim-puppet'
-
-" Track the engine.
-Plugin 'SirVer/ultisnips'
-"
-" " Snippets are separated from the engine. Add this if you want them:
-Plugin 'honza/vim-snippets'
-let g:UltiSnipsExpandTrigger="<c-tab>"
-let g:UltiSnipsListSnippets="<s-tab>"
-"let g:UltiSnipsJumpForwardTrigger="<c-j>"
-"let g:UltiSnipsJumpBackwardTrigger="<c-k>"
-
-"https://github.com/robbles/logstash.vim
-" syntax highlighting for logstash.conf
-Plugin 'robbles/logstash.vim'
 
 
 " color schems

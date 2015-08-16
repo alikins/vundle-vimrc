@@ -38,7 +38,7 @@ call vundle#begin()
 
 " let Vundle manage Vundle
 " " required! 
-Plugin 'gmarik/Vundle.vim'
+Plugin 'gmarik/vundle.vim'
 
 " ack.vim
 Plugin 'mileszs/ack.vim'
@@ -237,6 +237,7 @@ let g:UltiSnipsListSnippets="<s-tab>"
 "https://github.com/robbles/logstash.vim
 " syntax highlighting for logstash.conf
 Plugin 'robbles/logstash.vim'
+
 
 " color schems
 Plugin 'altercation/vim-colors-solarized'

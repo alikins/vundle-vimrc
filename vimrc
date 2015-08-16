@@ -1,9 +1,37 @@
 
+"
+" h/l left/right j/k updown
+" b back word, w forward word
+" <Leader>rt  tagbar
+" command mode
+" ctrl-w <arrow> move to window
+" ctrl-h/j/k/l move to window
+" ctrl-w_ max/zoom this window
+" ctrl-w ctrl-o make current window only window on screen
+" :hide   hide current window
+" :ls show all buffers
+" ctrl-w cltr-w  cycle windows
+" :reg to show cut things
+" "<number>p to paste that cut
+" v visual mode, y to yank, p to paste, d to delete
+" and mostly working ctrl-c/x/v
+" c-c g  goto def in python (repo)
+" ctrl-]  find tag, including in help
+" <leader>a ack for word under cursor
+" <leader>s s/// for word under cursor
+" macro
+"    qq  start recording macro and store in register 'a'
+"    q to stop
+"    @q to play it back
+"    @@ to repeat it
+"
+" \/ nerd comment toggle
+
 set nocompatible
 filetype off
 
 "set verbosefile=~/.vim/log/verbose.log
-"set verbose=1
+"set verbose=3
 
 set rtp+=~/.vim/bundle/Vundle.vim/
 call vundle#begin()
@@ -145,6 +173,8 @@ map g/ <Plug>(incsearch-stay)
 " http://vimcasts.org/episodes/project-wide-find-and-replace/
 Plugin 'Peeja/vim-cdo'
 
+" fugitive, mostly for http://vi.stackexchange.com/a/3748
+Plugin 'tpope/vim-fugitive'
 
 "
 " Auditions
@@ -327,6 +357,15 @@ imap <F7> <ESC>:cprev <CR>i
 " http://vim.wikia.com/wiki/Shifting_blocks_visually
 vnoremap > >gv
 vnoremap < <gv
+
+" cough, emacs, cough
+" begin/end of line
+map <C-a> <Home>
+map <C-e> <End>
+
+"readline/bash style home/end for command mode as well
+cnoremap <C-a> <Home>
+cnoremap <C-e> <End>
 
 filetype plugin indent on " Turn on filetype plugins (:help filetype-plugin)
 

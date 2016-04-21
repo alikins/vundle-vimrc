@@ -5,12 +5,14 @@ filetype off
 "set verbosefile=~/.vim/log/verbose.log
 "set verbose=1
 
+let mapleader='\'
+
 set rtp+=~/.vim/bundle/Vundle.vim/
 call vundle#begin()
 
 " let Vundle manage Vundle
 " " required! 
-Plugin 'gmarik/vundle.vim'
+Plugin 'VundleVim/Vundle.vim'
 
 " ack.vim
 Plugin 'mileszs/ack.vim'
@@ -43,7 +45,7 @@ Plugin 'alikins/vim-fix-git-diff-path'
 Plugin 'airblade/vim-rooter'
 Plugin 'tpope/vim-git'
 Plugin 'vim-ruby/vim-ruby'
-Plugin 'ajf/puppet-vim'
+"Plugin 'ajf/puppet-vim'
 Plugin 'pangloss/vim-javascript'
 Plugin 'wgwoods/vim-scripts', {'name': 'vim-wgwoods-fedora'}
 Plugin 'alikins/vim-buildr'
@@ -58,11 +60,16 @@ let g:pymode_rope_complete_on_dot = 0
 " Key for set/unset breakpoint
 " \b conflicts with buffergator
 let g:pymode_breakpoint_bind = '<leader>B'
+let g:pymode_trim_whitespaces = 0
 
 Bundle 'scrooloose/nerdcommenter'
 
-Bundle 'jeetsukumaran/vim-buffergator'
+" too slow
+let g:pymode_rope_regenerate_on_write = 0
+
+Plugin 'jeetsukumaran/vim-buffergator'
 " toggle instead of open to match nerdtree and tabbar patters
+let g:buffergator_suppress_keymaps = 1
 nnoremap <silent> <Leader>b :BuffergatorToggle<CR>
 nnoremap <silent> <Leader>t :BuffergatorTabsToggle<CR>
 
@@ -80,56 +87,89 @@ let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files']
 "                         \ 'undo', 'line', 'changes', 'cmdline', 'menu',
 "                         \ 'bookmarkdir']
 
-" under review
-Plugin 'mattn/webapi-vim'
-Plugin 'mmozuras/vim-github-comment'
-let g:github_user = 'alikins'
-
-Plugin 'junkblocker/patchreview-vim'
-"Plugin 'Valloric/YouCompleteMe'
-
-"Plugin 'ameade/qtpy-vim'
-
-Plugin 'JarrodCTaylor/vim-python-test-runner'
-
-"https://github.com/lamndalisure/nose.vom
-"A simple compiler for using nosetests on VIM
-Plugin 'lambdalisue/nose.vim'
-
-"https://github.com/mattboehm/vim-unstack
-"Vim plugin for parsing stack traces and opening the files
-Plugin 'mattboehm/vim-unstack'
-
-"https://github.com/alfredodeza/coveragepy.vim
-Plugin 'alfredodeza/coveragepy.vim'
 
 "https://github.com/milkypostman/vim-togglelist
 " allows <leader>q to toggle quickfix (ack, etc)
 Plugin 'milkypostman/vim-togglelist'
 
 
+" http://usevim.com/2014/10/20/incsearch/
+"httpa://github.com/haya14busa/incsearch.vim
+Plugin 'haya14busa/incsearch.vim'
+"map /  <Plug>(incsearch-forward)
+"map ?  <Plug>(incsearch-backward)
+"map g/ <Plug>(incsearch-stay)
+
+" https://github.coPeeja/vim-cdo
+" http://vimcasts.org/episodes/project-wide-find-and-replace/
+Plugin 'Peeja/vim-cdo'
+
+"https://github.com/robbles/logstash.vim
+" syntax highlighting for logstash.conf
+Plugin 'robbles/logstash.vim'
+
+"https://github.com/PeterRincker/vim-bumblebee
+"Plugin 'PeterRincker/vim-bumblebee'
+
+"https://github.com/tpope/vim-haystack
+"Plugin 'tpope/vim-haystack'
+
 " color schems
 Plugin 'altercation/vim-colors-solarized'
 Plugin 'tomasr/molokai'
 
-
-
-" http://usevim.com/2014/10/20/incsearch/
-"httpa://github.com/haya14busa/incsearch.vim
-Plugin 'haya14busa/incsearch.vim'
-map /  <Plug>(incsearch-forward)
-map ?  <Plug>(incsearch-backward)
-map g/ <Plug>(incsearch-stay)
-
 "
 " Auditions
-"   Various plugins I'm trying out.
+"   Various plugins I'm trying out but don't use much.
 "
-"https://github.com/tpope/vim-haystack
-Plugin 'tpope/vim-haystack'
+" under review
+"Plugin 'mattn/webapi-vim'
+"Plugin 'mmozuras/vim-github-comment'
+"let g:github_user = 'alikins'
 
-"https://github.com/PeterRincker/vim-bumblebee
-Plugin 'PeterRincker/vim-bumblebee'
+Plugin 'junkblocker/patchreview-vim'
+"Plugin 'Valloric/YouCompleteMe'
+
+"Plugin 'ameade/qtpy-vim'
+
+"Plugin 'JarrodCTaylor/vim-python-test-runner'
+
+"https://github.com/lamndalisure/nose.vom
+"A simple compiler for using nosetests on VIM
+"Plugin 'lambdalisue/nose.vim'
+
+"https://github.com/mattboehm/vim-unstack
+"Vim plugin for parsing stack traces and opening the files
+"Plugin 'mattboehm/vim-unstack'
+
+"https://github.com/alfredodeza/coveragepy.vim
+"Plugin 'alfredodeza/coveragepy.vim'
+
+"https://github.com/milkypostman/vim-togglelist
+" allows <leader>q to toggle quickfix (ack, etc)
+Plugin 'milkypostman/vim-togglelist'
+"https://github.com/majutsushi/tagbar
+"Plugin 'majutsushi/tagbar'
+"nmap <Leader>tb :TagbarToggle<CR>
+"let g:tagbar_ctags_bin = '/usr/local/bin/ctags'
+"let g:tagbar_type_puppet = {
+"    \ 'ctagstype' : 'puppet',
+"    \ 'kinds' : [
+"    \ 'd:defination'
+"    \   ],
+"    \ 'sort' : 1,
+"    \ }
+
+
+"Plugin 'SirVer/ultisnips'
+"
+" " Snippets are separated from the engine. Add this if you want them:
+" Plugin 'honza/vim-snippets'
+"let g:UltiSnipsExpandTrigger="<c-tab>"
+"let g:UltiSnipsListSnippets="<s-tab>"
+"let g:UltiSnipsJumpForwardTrigger="<c-j>"
+"let g:UltiSnipsJumpBackwardTrigger="<c-k>"
+
 
 call vundle#end()
 
@@ -142,14 +182,14 @@ nnoremap <silent> <Leader>b :BuffergatorToggle<CR>
 
 " unstack uses <Leader>s, undo that and use \st
 let g:unstack_mapkey = '<Leader>st'
-set nonumber
-set autoindent
-set tabstop=4
-set shiftwidth=4
-set encoding=utf-8
 
 syntax enable
 
+set autoindent
+" http://spf13.com/post/perfect-vimrc-vim-config-file/
+set backspace=indent,eol,start  " backspace for dummys
+set encoding=utf-8
+set expandtab
 set noswapfile
 set smartcase
 
@@ -178,16 +218,12 @@ set backspace=indent,eol,start  " backspace for dummys
 " across line boundarys
 set whichwrap=b,s,<,>
 
-" find as you type search
-set incsearch
-set scrolloff=2
 set tabstop=4
 set shiftwidth=4
-set expandtab
-set list
-set backspace=indent,eol,start
+
 
 " List chars
+set list
 set listchars=""                  " Reset the listchars
 set listchars=tab:\ \             " a tab should display as "  ", trailing whitespace as "."
 set listchars+=trail:.            " show trailing spaces as dots
@@ -195,8 +231,8 @@ set listchars+=extends:>          " The character to show in the last column whe
                                   " off and the line continues beyond the right of the screen
 set listchars+=precedes:<         " The character to show in the last column when wrap is
 
-set hlsearch    " highlight matches
-set incsearch   " incremental searching
+"set hlsearch    " highlight matches
+"set incsearch   " incremental searching
 set ignorecase  " searches are case insensitive...
 set smartcase   " ... unless they contain at least one capital letter
 
@@ -205,6 +241,10 @@ set backupdir=~/.vim/state/backup//    " where to put backup files.
 set directory=~/.vim/state/tmp//      " where to put swap files.
 set undodir=~/.vim/state/undo//         " where to put undo files
 
+" gah, folding stop stop stop
+set nofoldenable
+" or number lines. Every f'in plugin tries to turn this back on.
+set nonumber
 
 colorscheme molokai
 
@@ -241,9 +281,10 @@ imap <F7> <ESC>:cprev <CR>i
 vnoremap > >gv
 vnoremap < <gv
 
-filetype plugin indent on " Turn on filetype plugins (:help filetype-plugin)
-
 set laststatus=2  " always show the status bar
+
+highlight nonascii guibg=Red ctermbg=1 term=standout
+au BufReadPost * syntax match nonascii "[^\u0000-\u007F]"
 
 " Start the status line
 "set statusline=%f\ %m\ %r

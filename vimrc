@@ -33,19 +33,18 @@ let g:syntastic_mode_map = { 'mode': 'active',
 "let g:syntastic_python_checker_args='--ignore=E501,E121,E122,E123,E124,E125,E126,E127,E128'
 let g:syntastic_python_checkers = ['flake8']
 let g:syntastic_enabled_highlighting=1
-let g:syntastic_java_checkstyle_classpath = 'checkstyle-5.7-all.jar'
+"let g:syntastic_java_checkstyle_classpath = 'checkstyle-5.7-all.jar'
 "let g:syntastic_java_javac_autoload_maven_classpath=0
 "let g:syntastic_java_javac_config_file_enabled=0
-let g:syntastic_java_checkers = ['javac', 'checkstyle']
-let g:syntastic_java_checkstyle_conf_file='/home/adrian/.checkstyle'
-let g:syntastic_java_javac_custom_classpath_command = "buildr -s syntastic:echo"
+"let g:syntastic_java_checkers = ['javac', 'checkstyle']
+"let g:syntastic_java_checkstyle_conf_file='/home/adrian/.checkstyle'
+"let g:syntastic_java_javac_custom_classpath_command = "buildr -s syntastic:echo"
 
 Plugin 'bogado/file-line'
 Plugin 'alikins/vim-fix-git-diff-path'
 Plugin 'airblade/vim-rooter'
 Plugin 'tpope/vim-git'
 Plugin 'vim-ruby/vim-ruby'
-"Plugin 'ajf/puppet-vim'
 Plugin 'pangloss/vim-javascript'
 Plugin 'wgwoods/vim-scripts', {'name': 'vim-wgwoods-fedora'}
 Plugin 'alikins/vim-buildr'
@@ -61,11 +60,9 @@ let g:pymode_rope_complete_on_dot = 0
 " \b conflicts with buffergator
 let g:pymode_breakpoint_bind = '<leader>B'
 let g:pymode_trim_whitespaces = 0
-
-Bundle 'scrooloose/nerdcommenter'
-
 " too slow
 let g:pymode_rope_regenerate_on_write = 0
+
 
 Plugin 'jeetsukumaran/vim-buffergator'
 " toggle instead of open to match nerdtree and tabbar patters
@@ -92,9 +89,8 @@ let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files']
 " allows <leader>q to toggle quickfix (ack, etc)
 Plugin 'milkypostman/vim-togglelist'
 
-
 " http://usevim.com/2014/10/20/incsearch/
-"httpa://github.com/haya14busa/incsearch.vim
+" https://github.com/haya14busa/incsearch.vim
 Plugin 'haya14busa/incsearch.vim'
 "map /  <Plug>(incsearch-forward)
 "map ?  <Plug>(incsearch-backward)
@@ -145,9 +141,6 @@ Plugin 'junkblocker/patchreview-vim'
 "https://github.com/alfredodeza/coveragepy.vim
 "Plugin 'alfredodeza/coveragepy.vim'
 
-"https://github.com/milkypostman/vim-togglelist
-" allows <leader>q to toggle quickfix (ack, etc)
-Plugin 'milkypostman/vim-togglelist'
 "https://github.com/majutsushi/tagbar
 "Plugin 'majutsushi/tagbar'
 "nmap <Leader>tb :TagbarToggle<CR>

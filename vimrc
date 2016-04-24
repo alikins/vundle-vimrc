@@ -23,16 +23,33 @@ let g:ack_default_options = " -H --nocolor --nogroup --column"
 
 " syntastic
 Plugin 'scrooloose/syntastic'
+"set statusline+=%#warningmsg#
+"set statusline+=%{SyntasticStatuslineFlag()}
+"set statusline+=%*
+
+"let g:syntastic_debug = 127
+"let g:syntastic_debug_file = '~/.vim/log/syntastic.log'
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
+let g:syntastic_enable_highlighting = 1
+let g:syntastic_enable_balloons = 0
 let g:syntastic_enable_signs=1
-let g:syntastic_check_on_open=1
+"let g:syntastic_check_on_open=1
 "let g:syntastic_enable_balloons=1
-let g:syntastic_enable_highlighting=1
-let g:syntastic_mode_map = { 'mode': 'active',
-            \ 'active_filetypes': ['ruby','python', 'sh'],
-            \ 'passive_filetypes': ['puppet'] }
+"let g:syntastic_enable_highlighting=1
+"let g:syntastic_mode_map = { 'mode': 'active',
+"            \ 'active_filetypes': ['ruby','python', 'sh'],
+"            \ 'passive_filetypes': ['puppet'] }
 "let g:syntastic_python_checker_args='--ignore=E501,E121,E122,E123,E124,E125,E126,E127,E128'
-let g:syntastic_python_checkers = ['flake8']
-let g:syntastic_enabled_highlighting=1
+"let g:syntastic_python_checkers = ['flake8']
+let g:syntastic_aggregate_errors = 1
+let g:syntastic_python_flake8_args='--ignore=E125,E128,E202,E221,E231,E241,E251,E302,E501,E402'
+let g:syntastic_python_checkers = ['pyflakes', 'pyqver2']
+let g:syntastic_python_pyqver2_args = '-m 2.7 -l'
+let g:syntastic_python_pyqver2_sort = 1
+"let g:syntastic_enabled_highlighting=1
 "let g:syntastic_java_checkstyle_classpath = 'checkstyle-5.7-all.jar'
 "let g:syntastic_java_javac_autoload_maven_classpath=0
 "let g:syntastic_java_javac_config_file_enabled=0
@@ -52,8 +69,10 @@ Plugin 'bling/vim-airline'
 
 Plugin 'klen/python-mode'
 " disable python folding
+let g:pymode = 0
 let g:pymode_folding = 0
 let g:pymode_lint = 0
+let g:pymode_lint_on_write = 0
 let g:pymode_doc = 0
 let g:pymode_rope_complete_on_dot = 0
 " Key for set/unset breakpoint
@@ -123,7 +142,7 @@ Plugin 'tomasr/molokai'
 "Plugin 'mmozuras/vim-github-comment'
 "let g:github_user = 'alikins'
 
-Plugin 'junkblocker/patchreview-vim'
+"Plugin 'junkblocker/patchreview-vim'
 "Plugin 'Valloric/YouCompleteMe'
 
 "Plugin 'ameade/qtpy-vim'
@@ -170,7 +189,10 @@ filetype plugin indent on
 
 " Key for set/unset breakpoint
 " \b conflicts with buffergator
-let g:pymode_breakpoint_bind = '<leader>B'
+
+
+"let g:pymode_breakpoint_bind = '<leader>B'
+
 nnoremap <silent> <Leader>b :BuffergatorToggle<CR>
 
 " unstack uses <Leader>s, undo that and use \st
@@ -178,6 +200,12 @@ let g:unstack_mapkey = '<Leader>st'
 
 syntax enable
 
+" http://vimdoc.sourceforge.net/htmldoc/options.html#'shortmess'
+" http://spf13.com/post/perfect-vimrc-vim-config-file/
+" Turn off lots of annoying messages including "hit enter
+" to continue" on quickfix
+set shortmess+=AcfiIlmnoOrstTx
+set cmdheight=2
 set autoindent
 " http://spf13.com/post/perfect-vimrc-vim-config-file/
 set backspace=indent,eol,start  " backspace for dummys
@@ -198,14 +226,6 @@ set mouse=a
 "  you can change buffers without saving
 set hidden
 
-" http://vimdoc.sourceforge.net/htmldoc/options.html#'shortmess'
-" http://spf13.com/post/perfect-vimrc-vim-config-file/
-" Turn off lots of annoying messages including "hit enter
-" to continue" on quickfix
-set shortmess+=filmnrxoOtT
-
-" http://spf13.com/post/perfect-vimrc-vim-config-file/
-set backspace=indent,eol,start  " backspace for dummys
 
 " make backspace/space/<left>/<right> do the right thing
 " across line boundarys
@@ -227,7 +247,7 @@ set listchars+=precedes:<         " The character to show in the last column whe
 "set hlsearch    " highlight matches
 "set incsearch   " incremental searching
 set ignorecase  " searches are case insensitive...
-set smartcase   " ... unless they contain at least one capital letter
+"set smartcase   " ... unless they contain at least one capital letter
 
 " various backup and temp dirs
 set backupdir=~/.vim/state/backup//    " where to put backup files.
@@ -238,6 +258,7 @@ set undodir=~/.vim/state/undo//         " where to put undo files
 set nofoldenable
 " or number lines. Every f'in plugin tries to turn this back on.
 set nonumber
+
 
 colorscheme molokai
 
@@ -277,7 +298,7 @@ vnoremap < <gv
 set laststatus=2  " always show the status bar
 
 highlight nonascii guibg=Red ctermbg=1 term=standout
-au BufReadPost * syntax match nonascii "[^\u0000-\u007F]"
+"au BufReadPost * syntax match nonascii "[^\u0000-\u007F]"
 
 " Start the status line
 "set statusline=%f\ %m\ %r
@@ -286,6 +307,6 @@ au BufReadPost * syntax match nonascii "[^\u0000-\u007F]"
 "set statusline+=Buf:#%n
 "set statusline+=[%b][0x%B]
 
-if filereadable(expand("~/.vim/filetypes.vim"))
-  source ~/.vim/filetypes.vim
-endif
+"if filereadable(expand("~/.vim/filetypes.vim"))
+"  source ~/.vim/filetypes.vim
+"endif

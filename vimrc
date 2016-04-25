@@ -169,6 +169,8 @@ map g/ <Plug>(incsearch-stay)
 " fugitive, mostly for http://vi.stackexchange.com/a/3748
 Plugin 'tpope/vim-fugitive'
 
+Plugin 'chase/vim-ansible-yaml'
+
 "
 " Auditions
 "   Various plugins I'm trying out but don't use much.

@@ -69,7 +69,7 @@ Plugin 'bling/vim-airline'
 
 Plugin 'klen/python-mode'
 " disable python folding
-let g:pymode = 0
+let g:pymode_options = 0
 let g:pymode_folding = 0
 let g:pymode_lint = 0
 let g:pymode_lint_on_write = 0

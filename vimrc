@@ -2,8 +2,8 @@
 set nocompatible
 filetype off
 
-"set verbosefile=~/.vim/log/verbose.log
-"set verbose=1
+set verbosefile=~/.vim/log/verbose.log
+set verbose=16
 
 let mapleader='\'
 
@@ -202,7 +202,9 @@ set hidden
 " http://spf13.com/post/perfect-vimrc-vim-config-file/
 " Turn off lots of annoying messages including "hit enter
 " to continue" on quickfix
-set shortmess+=filmnrxoOtT
+"set shortmess+=filmnrxoOtT
+set shortmess=a
+set cmdheight=2
 
 " http://spf13.com/post/perfect-vimrc-vim-config-file/
 set backspace=indent,eol,start  " backspace for dummys

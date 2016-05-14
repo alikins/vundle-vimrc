@@ -31,6 +31,6 @@ if has("autocmd")
 
   " Remember last location in file, but not for commit messages.
   " see :help last-position-jump
-  au BufReadPost * if &filetype !~ '^git\c' && line("'\"") > 0 && line("'\"") <= line("$")
-    \| exe "normal! g`\"" | endif
+  "au BufReadPost * if &filetype !~ '^git\c' && line("'\"") > 0 && line("'\"") <= line("$")
+  "  \| exe "normal! g`\"" | endif
 endif

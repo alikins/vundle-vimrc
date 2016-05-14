@@ -173,17 +173,18 @@ Plugin 'tomasr/molokai'
 "   Various plugins I'm trying out but don't use much.
 "
 " under review
-Plugin 'mattn/webapi-vim'
-Plugin 'mmozuras/vim-github-comment'
-let g:github_user = 'alikins'
+"Plugin 'mattn/webapi-vim'
+
+"Plugin 'mmozuras/vim-github-comment'
+"let g:github_user = 'alikins'
 
 "https://github.com/tpope/vim-haystack
-Plugin 'tpope/vim-haystack'
+"Plugin 'tpope/vim-haystack'
 
 "https://github.com/PeterRincker/vim-bumblebee
-Plugin 'PeterRincker/vim-bumblebee'
+"Plugin 'PeterRincker/vim-bumblebee'
 
-Plugin 'junkblocker/patchreview-vim'
+"Plugin 'junkblocker/patchreview-vim'
 "Plugin 'Valloric/YouCompleteMe'
 
 "Plugin 'ameade/qtpy-vim'
@@ -200,13 +201,6 @@ Plugin 'junkblocker/patchreview-vim'
 
 "https://github.com/alfredodeza/coveragepy.vim
 "Plugin 'alfredodeza/coveragepy.vim'
-
-
-
-" color schems
-Plugin 'altercation/vim-colors-solarized'
-Plugin 'tomasr/molokai'
-
 
 call vundle#end()
 

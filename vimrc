@@ -154,9 +154,8 @@ Plugin 'haya14busa/incsearch.vim'
 " http://vimcasts.org/episodes/project-wide-find-and-replace/
 Plugin 'Peeja/vim-cdo'
 
-"https://github.com/robbles/logstash.vim
-" syntax highlighting for logstash.conf
-Plugin 'robbles/logstash.vim'
+" https://github.com/pearofducks/ansible-vim
+Plugin 'pearofducks/ansible-vim'
 
 "https://github.com/PeterRincker/vim-bumblebee
 "Plugin 'PeterRincker/vim-bumblebee'

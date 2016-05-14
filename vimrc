@@ -10,7 +10,7 @@ call vundle#begin()
 
 " let Vundle manage Vundle
 " " required! 
-Plugin 'gmarik/Vundle.vim'
+Plugin 'VundleVim/Vundle.vim'
 
 " ack.vim
 Plugin 'mileszs/ack.vim'
@@ -60,6 +60,7 @@ Plugin 'bling/vim-airline'
 
 Plugin 'klen/python-mode'
 " disable python folding
+let g:pymode_options = 0
 let g:pymode_folding = 0
 let g:pymode_lint = 0
 let g:pymode_doc = 0
@@ -248,9 +249,9 @@ set ignorecase  " searches are case insensitive...
 set smartcase   " ... unless they contain at least one capital letter
 
 " various backup and temp dirs
-set backupdir=~/.vim/state/backup//    " where to put backup files.
-set directory=~/.vim/state/tmp//      " where to put swap files.
-set undodir=~/.vim/state/undo//         " where to put undo files
+set backupdir=~/.vim/state/backup/    " where to put backup files.
+set directory=~/.vim/state/tmp/      " where to put swap files.
+set undodir=~/.vim/state/undo/         " where to put undo files
 
 
 " gah, folding stop stop stop

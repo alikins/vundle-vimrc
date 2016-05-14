@@ -1,4 +1,32 @@
 
+"
+" h/l left/right j/k updown
+" b back word, w forward word
+" <Leader>rt  tagbar
+" command mode
+" ctrl-w <arrow> move to window
+" ctrl-h/j/k/l move to window
+" ctrl-w_ max/zoom this window
+" ctrl-w ctrl-o make current window only window on screen
+" :hide   hide current window
+" :ls show all buffers
+" ctrl-w cltr-w  cycle windows
+" :reg to show cut things
+" "<number>p to paste that cut
+" v visual mode, y to yank, p to paste, d to delete
+" and mostly working ctrl-c/x/v
+" c-c g  goto def in python (repo)
+" ctrl-]  find tag, including in help
+" <leader>a ack for word under cursor
+" <leader>s s/// for word under cursor
+" macro
+"    qq  start recording macro and store in register 'a'
+"    q to stop
+"    @q to play it back
+"    @@ to repeat it
+"
+" \/ nerd comment toggle
+
 set nocompatible
 filetype off
 
@@ -41,26 +69,23 @@ let g:syntastic_check_on_wq = 0
 let g:syntastic_enable_highlighting = 1
 let g:syntastic_enable_balloons = 0
 let g:syntastic_enable_signs=1
-"let g:syntastic_check_on_open=1
-"let g:syntastic_enable_balloons=1
-"let g:syntastic_enable_highlighting=1
-"let g:syntastic_mode_map = { 'mode': 'active',
-"            \ 'active_filetypes': ['ruby','python', 'sh'],
-"            \ 'passive_filetypes': ['puppet'] }
-"let g:syntastic_python_checker_args='--ignore=E501,E121,E122,E123,E124,E125,E126,E127,E128'
-"let g:syntastic_python_checkers = ['flake8']
+let g:syntastic_check_on_open=1
+
+
 let g:syntastic_aggregate_errors = 1
 let g:syntastic_python_flake8_args='--ignore=E125,E128,E202,E221,E231,E241,E251,E302,E501,E402'
 let g:syntastic_python_checkers = ['pyflakes', 'pyqver2']
 let g:syntastic_python_pyqver2_args = '-m 2.7 -l'
 let g:syntastic_python_pyqver2_sort = 1
-"let g:syntastic_enabled_highlighting=1
-"let g:syntastic_java_checkstyle_classpath = 'checkstyle-5.7-all.jar'
-"let g:syntastic_java_javac_autoload_maven_classpath=0
-"let g:syntastic_java_javac_config_file_enabled=0
-"let g:syntastic_java_checkers = ['javac', 'checkstyle']
-"let g:syntastic_java_checkstyle_conf_file='/home/adrian/.checkstyle'
-"let g:syntastic_java_javac_custom_classpath_command = "buildr -s syntastic:echo"
+let g:syntastic_enable_highlighting=1
+let g:syntastic_mode_map = { 'mode': 'active',
+                           \ 'active_filetypes': ['ruby','python', 'sh', 'puppet'],
+                           \ 'passive_filetypes': [] }
+
+let g:syntastic_python_checker_args='--ignore=E501,E121,E122,E123,E124,E125,E126,E127,E128'
+"let g:syntastic_python_checkers = ['flake8', 'pylint', 'pyqver']
+let g:syntastic_python_checkers = ['flake8']
+
 
 "let g:syntastic_puppet_puppetlint
 Plugin 'scrooloose/nerdcommenter'
@@ -93,6 +118,7 @@ let g:pymode_rope_regenerate_on_write = 0
 
 
 Plugin 'jeetsukumaran/vim-buffergator'
+
 " toggle instead of open to match nerdtree and tabbar patters
 let g:buffergator_suppress_keymaps = 1
 nnoremap <silent> <Leader>b :BuffergatorToggle<CR>
@@ -147,11 +173,17 @@ Plugin 'tomasr/molokai'
 "   Various plugins I'm trying out but don't use much.
 "
 " under review
-"Plugin 'mattn/webapi-vim'
-"Plugin 'mmozuras/vim-github-comment'
-"let g:github_user = 'alikins'
+Plugin 'mattn/webapi-vim'
+Plugin 'mmozuras/vim-github-comment'
+let g:github_user = 'alikins'
 
-"Plugin 'junkblocker/patchreview-vim'
+"https://github.com/tpope/vim-haystack
+Plugin 'tpope/vim-haystack'
+
+"https://github.com/PeterRincker/vim-bumblebee
+Plugin 'PeterRincker/vim-bumblebee'
+
+Plugin 'junkblocker/patchreview-vim'
 "Plugin 'Valloric/YouCompleteMe'
 
 "Plugin 'ameade/qtpy-vim'
@@ -169,27 +201,11 @@ Plugin 'tomasr/molokai'
 "https://github.com/alfredodeza/coveragepy.vim
 "Plugin 'alfredodeza/coveragepy.vim'
 
-"https://github.com/majutsushi/tagbar
-"Plugin 'majutsushi/tagbar'
-"nmap <Leader>tb :TagbarToggle<CR>
-"let g:tagbar_ctags_bin = '/usr/local/bin/ctags'
-"let g:tagbar_type_puppet = {
-"    \ 'ctagstype' : 'puppet',
-"    \ 'kinds' : [
-"    \ 'd:defination'
-"    \   ],
-"    \ 'sort' : 1,
-"    \ }
 
 
-"Plugin 'SirVer/ultisnips'
-"
-" " Snippets are separated from the engine. Add this if you want them:
-" Plugin 'honza/vim-snippets'
-"let g:UltiSnipsExpandTrigger="<c-tab>"
-"let g:UltiSnipsListSnippets="<s-tab>"
-"let g:UltiSnipsJumpForwardTrigger="<c-j>"
-"let g:UltiSnipsJumpBackwardTrigger="<c-k>"
+" color schems
+Plugin 'altercation/vim-colors-solarized'
+Plugin 'tomasr/molokai'
 
 
 call vundle#end()
@@ -206,6 +222,12 @@ nnoremap <silent> <Leader>b :BuffergatorToggle<CR>
 
 " unstack uses <Leader>s, undo that and use \st
 let g:unstack_mapkey = '<Leader>st'
+
+set nonumber
+set autoindent
+set tabstop=4
+set shiftwidth=4
+set encoding=utf-8
 
 syntax enable
 
@@ -240,6 +262,9 @@ set hidden
 " across line boundarys
 set whichwrap=b,s,<,>
 
+" find as you type search
+set incsearch
+set scrolloff=2
 set tabstop=4
 set shiftwidth=4
 
@@ -256,7 +281,7 @@ set listchars+=precedes:<         " The character to show in the last column whe
 "set hlsearch    " highlight matches
 "set incsearch   " incremental searching
 set ignorecase  " searches are case insensitive...
-"set smartcase   " ... unless they contain at least one capital letter
+set smartcase   " ... unless they contain at least one capital letter
 
 " various backup and temp dirs
 set backupdir=~/.vim/state/backup/    " where to put backup files.
@@ -305,11 +330,21 @@ imap <F7> <ESC>:cprev <CR>i
 vnoremap > >gv
 vnoremap < <gv
 
+" cough, emacs, cough
+" begin/end of line
+map <C-a> <Home>
+map <C-e> <End>
+
+"readline/bash style home/end for command mode as well
+cnoremap <C-a> <Home>
+cnoremap <C-e> <End>
+
+filetype plugin indent on " Turn on filetype plugins (:help filetype-plugin)
+
 set laststatus=2  " always show the status bar
 
 highlight nonascii guibg=Red ctermbg=1 term=standout
-"au BufReadPost * syntax match nonascii "[^\u0000-\u007F]"
-
+au BufReadPost * syntax match nonascii "[^\u0000-\u007F]"
 " Start the status line
 "set statusline=%f\ %m\ %r
 "set statusline+=Line:%l/%L[%p%%]
@@ -317,6 +352,6 @@ highlight nonascii guibg=Red ctermbg=1 term=standout
 "set statusline+=Buf:#%n
 "set statusline+=[%b][0x%B]
 
-"if filereadable(expand("~/.vim/filetypes.vim"))
-"  source ~/.vim/filetypes.vim
-"endif
+if filereadable(expand("~/.vim/filetypes.vim"))
+  source ~/.vim/filetypes.vim
+endif

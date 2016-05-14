@@ -53,15 +53,8 @@ let g:ack_default_options = " -H --nocolor --nogroup --column"
 " TODO: add global keymap to do it
 
 
-
 " syntastic
 Plugin 'scrooloose/syntastic'
-"set statusline+=%#warningmsg#
-"set statusline+=%{SyntasticStatuslineFlag()}
-"set statusline+=%*
-
-"let g:syntastic_debug = 127
-"let g:syntastic_debug_file = '~/.vim/log/syntastic.log'
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
@@ -74,22 +67,19 @@ let g:syntastic_check_on_open=1
 
 let g:syntastic_aggregate_errors = 1
 let g:syntastic_python_flake8_args='--ignore=E125,E128,E202,E221,E231,E241,E251,E302,E501,E402'
-let g:syntastic_python_checkers = ['pyflakes', 'pyqver2']
 let g:syntastic_python_pyqver2_args = '-m 2.7 -l'
 let g:syntastic_python_pyqver2_sort = 1
 let g:syntastic_enable_highlighting=1
 let g:syntastic_mode_map = { 'mode': 'active',
                            \ 'active_filetypes': ['ruby','python', 'sh', 'puppet'],
                            \ 'passive_filetypes': [] }
+let g:syntastic_python_checkers = ['flake8', 'pyqver2']
 
-let g:syntastic_python_checker_args='--ignore=E501,E121,E122,E123,E124,E125,E126,E127,E128'
+"let g:syntastic_python_checker_args='--ignore=E501,E121,E122,E123,E124,E125,E126,E127,E128'
 "let g:syntastic_python_checkers = ['flake8', 'pylint', 'pyqver']
-let g:syntastic_python_checkers = ['flake8']
+"let g:syntastic_python_checkers = ['flake8']
 
-
-"let g:syntastic_puppet_puppetlint
 Plugin 'scrooloose/nerdcommenter'
-
 
 Plugin 'bogado/file-line'
 Plugin 'alikins/vim-fix-git-diff-path'
@@ -118,7 +108,6 @@ let g:pymode_rope_regenerate_on_write = 0
 
 
 Plugin 'jeetsukumaran/vim-buffergator'
-
 " toggle instead of open to match nerdtree and tabbar patters
 let g:buffergator_suppress_keymaps = 1
 nnoremap <silent> <Leader>b :BuffergatorToggle<CR>
@@ -146,9 +135,9 @@ Plugin 'milkypostman/vim-togglelist'
 " http://usevim.com/2014/10/20/incsearch/
 " https://github.com/haya14busa/incsearch.vim
 Plugin 'haya14busa/incsearch.vim'
-"map /  <Plug>(incsearch-forward)
-"map ?  <Plug>(incsearch-backward)
-"map g/ <Plug>(incsearch-stay)
+map /  <Plug>(incsearch-forward)
+map ?  <Plug>(incsearch-backward)
+map g/ <Plug>(incsearch-stay)
 
 " https://github.coPeeja/vim-cdo
 " http://vimcasts.org/episodes/project-wide-find-and-replace/
@@ -158,7 +147,7 @@ Plugin 'Peeja/vim-cdo'
 Plugin 'pearofducks/ansible-vim'
 
 "https://github.com/PeterRincker/vim-bumblebee
-"Plugin 'PeterRincker/vim-bumblebee'
+Plugin 'PeterRincker/vim-bumblebee'
 
 "https://github.com/tpope/vim-haystack
 "Plugin 'tpope/vim-haystack'
@@ -205,12 +194,6 @@ call vundle#end()
 
 filetype plugin indent on
 
-" Key for set/unset breakpoint
-" \b conflicts with buffergator
-
-
-"let g:pymode_breakpoint_bind = '<leader>B'
-
 nnoremap <silent> <Leader>b :BuffergatorToggle<CR>
 
 " unstack uses <Leader>s, undo that and use \st
@@ -221,6 +204,9 @@ set autoindent
 set tabstop=4
 set shiftwidth=4
 set encoding=utf-8
+set expandtab
+set noswapfile
+set smartcase
 
 syntax enable
 
@@ -230,13 +216,8 @@ syntax enable
 " to continue" on quickfix
 set shortmess+=AcfiIlmnoOrstTx
 set cmdheight=2
-set autoindent
 " http://spf13.com/post/perfect-vimrc-vim-config-file/
 set backspace=indent,eol,start  " backspace for dummys
-set encoding=utf-8
-set expandtab
-set noswapfile
-set smartcase
 
 "set listchars=""
 set history=1000
@@ -250,7 +231,6 @@ set mouse=a
 "  you can change buffers without saving
 set hidden
 
-
 " make backspace/space/<left>/<right> do the right thing
 " across line boundarys
 set whichwrap=b,s,<,>
@@ -260,7 +240,6 @@ set incsearch
 set scrolloff=2
 set tabstop=4
 set shiftwidth=4
-
 
 " List chars
 set list

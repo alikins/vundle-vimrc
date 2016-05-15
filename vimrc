@@ -26,7 +26,9 @@
 "    @@ to repeat it
 "
 " \/ nerd comment toggle
-
+" To list filetype detection
+" :autocmd filetypedetect
+"
 set nocompatible
 filetype off
 
@@ -102,7 +104,7 @@ let g:pymode_rope_complete_on_dot = 0
 " Key for set/unset breakpoint
 " \b conflicts with buffergator
 let g:pymode_breakpoint_bind = '<leader>B'
-let g:pymode_trim_whitespaces = 0
+let g:pymode_trim_whitespaces = 1
 " too slow
 let g:pymode_rope_regenerate_on_write = 0
 
@@ -113,14 +115,14 @@ let g:buffergator_suppress_keymaps = 1
 nnoremap <silent> <Leader>b :BuffergatorToggle<CR>
 nnoremap <silent> <Leader>t :BuffergatorTabsToggle<CR>
 
-Plugin 'kien/ctrlp.vim'
+"Plugin 'kien/ctrlp.vim'
+Plugin 'ctrlpvim/ctrlp.vim'
 "let g:ctrlp_map = "<c-p>"
 let g:ctrlp_cmd = 'CtrlPMixed'
 " open ctrl-P in dir of current file
-let g:ctrlp_working_path_mode = 1
 let g:ctrlp_working_path_mode = 'ra'
 let g:ctrlp_use_caching = 1
-let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files']
+let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files -co --exclude-standard']
 "let g:ctrlp_clear_cache_on_exit = 0
 " which ctrl-p extensions to use
 "let g:ctrlp_extensions = ['buffertag', 'quickfix', 'dir', 'rtscript',
@@ -326,7 +328,7 @@ filetype plugin indent on " Turn on filetype plugins (:help filetype-plugin)
 set laststatus=2  " always show the status bar
 
 highlight nonascii guibg=Red ctermbg=1 term=standout
-au BufReadPost * syntax match nonascii "[^\u0000-\u007F]"
+
 " Start the status line
 "set statusline=%f\ %m\ %r
 "set statusline+=Line:%l/%L[%p%%]
@@ -334,6 +336,45 @@ au BufReadPost * syntax match nonascii "[^\u0000-\u007F]"
 "set statusline+=Buf:#%n
 "set statusline+=[%b][0x%B]
 
-if filereadable(expand("~/.vim/filetypes.vim"))
-  source ~/.vim/filetypes.vim
+" Some file types should wrap their text
+function! s:setupWrapping()
+  set wrap
+set linebreak
+  set textwidth=72
+  set nolist
+endfunction
+
+""
+"" File types
+""
+
+filetype plugin indent on " Turn on filetype plugins (:help filetype-plugin)
+
+if has("autocmd")
+
+  " highlist non ascii
+  autocmd BufReadPost * syntax match nonascii "[^\u0000-\u007F]"
+
+  " In Makefiles, use real tabs, not tabs expanded to spaces
+  autocmd FileType make setlocal noexpandtab
+
+  " Make sure all markdown files have the correct filetype set and setup wrapping
+  "au BufRead,BufNewFile *.{md,markdown,mdown,mkd,mkdn,txt} setf markdown | call s:setupWrapping()
+
+  " Treat JSON files like JavaScript
+  autocmd BufNewFile,BufRead *.json set ft=javascript
+
+  " make Python follow PEP8 for whitespace ( http://www.python.org/dev/peps/pep-0008/ )
+  autocmd FileType python setlocal softtabstop=4 tabstop=4 shiftwidth=4 nonumber
+
+  " Remember last location in file, but not for commit messages.
+  " see :help last-position-jump
+  autocmd BufReadPost * if &filetype !~ '^git\c' && line("'\"") > 0 && line("'\"") <= line("$")
+    \| exe "normal! g`\"" | endif
+
+  autocmd BufNewFile,BufRead */src/ansible/*.py set ft=python.ansible_src
+
+  "autocmd FileType ansible_src let b:pymode_trim_whitespaces = 0
+  "autocmd FileType ansible_src setlocal pymode_trim_whitespaces = 0
+  autocmd BufNewFile,BufRead */src/ansible/*.py let pymode_trim_whitespaces = 0
 endif

@@ -138,6 +138,13 @@ Plugin 'haya14busa/incsearch.vim'
 map /  <Plug>(incsearch-forward)
 map ?  <Plug>(incsearch-backward)
 map g/ <Plug>(incsearch-stay)
+let g:incsearch#auto_nohlsearch = 1
+map n  <Plug>(incsearch-nohl-n)
+map N  <Plug>(incsearch-nohl-N)
+map *  <Plug>(incsearch-nohl-*)
+map #  <Plug>(incsearch-nohl-#)
+map g* <Plug>(incsearch-nohl-g*)
+map g# <Plug>(incsearch-nohl-g#)
 
 " https://github.coPeeja/vim-cdo
 " http://vimcasts.org/episodes/project-wide-find-and-replace/
@@ -206,7 +213,8 @@ set shiftwidth=4
 set encoding=utf-8
 set expandtab
 set noswapfile
-set smartcase
+set ignorecase  " searches are case insensitive...
+set smartcase   " ... unless they contain at least one capital letter
 
 syntax enable
 
@@ -250,10 +258,8 @@ set listchars+=extends:>          " The character to show in the last column whe
                                   " off and the line continues beyond the right of the screen
 set listchars+=precedes:<         " The character to show in the last column when wrap is
 
-"set hlsearch    " highlight matches
+set hlsearch    " highlight matches
 "set incsearch   " incremental searching
-set ignorecase  " searches are case insensitive...
-set smartcase   " ... unless they contain at least one capital letter
 
 " various backup and temp dirs
 set backupdir=~/.vim/state/backup/    " where to put backup files.

@@ -168,6 +168,10 @@ Plugin 'tomasr/molokai'
 "   Various plugins I'm trying out but don't use much.
 "
 " under review
+Plugin 'Yggdroot/indentLine'
+let g:indentLine_char = '┆'
+" To toggle: ':IndentLinesToggle'
+
 "Plugin 'mattn/webapi-vim'
 
 "Plugin 'mmozuras/vim-github-comment'

@@ -299,7 +299,8 @@ set undodir=~/.vim/state/undo/         " where to put undo files
 set nofoldenable
 " or number lines. Every f'in plugin tries to turn this back on.
 set nonumber
-
+set wildmenu
+set wildmode=longest:longest,full
 
 colorscheme molokai
 

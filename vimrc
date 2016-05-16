@@ -57,7 +57,7 @@ let g:ack_default_options = " -H --nocolor --nogroup --column"
 
 " syntastic
 Plugin 'scrooloose/syntastic'
-let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_always_populate_loc_list = 0
 let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
@@ -104,7 +104,7 @@ let g:pymode_rope_complete_on_dot = 0
 " Key for set/unset breakpoint
 " \b conflicts with buffergator
 let g:pymode_breakpoint_bind = '<leader>B'
-let g:pymode_trim_whitespaces = 1
+let g:pymode_trim_whitespaces = 0
 " too slow
 let g:pymode_rope_regenerate_on_write = 0
 
@@ -123,6 +123,9 @@ let g:ctrlp_cmd = 'CtrlPMixed'
 let g:ctrlp_working_path_mode = 'ra'
 let g:ctrlp_use_caching = 1
 let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files -co --exclude-standard']
+let g:ctrlp_buftag_types = {
+  \ 'yaml'     : '--languages=ansible --ansible-types=k',
+  \ }
 "let g:ctrlp_clear_cache_on_exit = 0
 " which ctrl-p extensions to use
 "let g:ctrlp_extensions = ['buffertag', 'quickfix', 'dir', 'rtscript',
@@ -169,6 +172,19 @@ let g:indentLine_char = '┆'
 " https://github.com/thirtythreeforty/lessspace.vim
 " clenaup whitespace on exit, but only on lines we've changed
 Plugin 'thirtythreeforty/lessspace.vim'
+
+Plugin 'Valloric/YouCompleteMe'
+let g:ycm_autoclose_preview_window_after_completion = 1
+
+Plugin 'majutsushi/tagbar'
+nnoremap <silent> <Leader>rt :TagbarToggle<CR>
+let g:tagbar_type_ansible = {
+    \ 'ctagstype' : 'ansible',
+    \ 'kinds' : [
+        \ 't:tasks'
+    \ ],
+    \ 'sort' : 0
+\ }
 
 " color schemes
 Plugin 'altercation/vim-colors-solarized'
@@ -378,9 +394,6 @@ if has("autocmd")
   autocmd BufReadPost * if &filetype !~ '^git\c' && line("'\"") > 0 && line("'\"") <= line("$")
     \| exe "normal! g`\"" | endif
 
-  autocmd BufNewFile,BufRead */src/ansible/*.py set ft=python.ansible_src
-
+  "autocmd BufNewFile,BufRead */src/ansible/*.py set ft=python.ansible_src
   "autocmd FileType ansible_src let b:pymode_trim_whitespaces = 0
-  "autocmd FileType ansible_src setlocal pymode_trim_whitespaces = 0
-  autocmd BufNewFile,BufRead */src/ansible/*.py let pymode_trim_whitespaces = 0
 endif

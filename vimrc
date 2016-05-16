@@ -161,7 +161,16 @@ Plugin 'PeterRincker/vim-bumblebee'
 "https://github.com/tpope/vim-haystack
 "Plugin 'tpope/vim-haystack'
 
-" color schems
+" Show a vert line between indent blocks
+Plugin 'Yggdroot/indentLine'
+let g:indentLine_char = '┆'
+" To toggle: ':IndentLinesToggle'
+
+" https://github.com/thirtythreeforty/lessspace.vim
+" clenaup whitespace on exit, but only on lines we've changed
+Plugin 'thirtythreeforty/lessspace.vim'
+
+" color schemes
 Plugin 'altercation/vim-colors-solarized'
 Plugin 'tomasr/molokai'
 
@@ -170,9 +179,6 @@ Plugin 'tomasr/molokai'
 "   Various plugins I'm trying out but don't use much.
 "
 " under review
-Plugin 'Yggdroot/indentLine'
-let g:indentLine_char = '┆'
-" To toggle: ':IndentLinesToggle'
 
 "Plugin 'mattn/webapi-vim'
 

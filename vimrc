@@ -58,8 +58,8 @@ let g:ack_default_options = " -H --nocolor --nogroup --column"
 " syntastic
 Plugin 'scrooloose/syntastic'
 let g:syntastic_always_populate_loc_list = 0
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 1
+let g:syntastic_auto_loc_list = 2
+let g:syntastic_check_on_open = 0
 let g:syntastic_check_on_wq = 0
 let g:syntastic_enable_highlighting = 1
 let g:syntastic_enable_balloons = 0
@@ -69,7 +69,7 @@ let g:syntastic_check_on_open=1
 
 let g:syntastic_aggregate_errors = 1
 let g:syntastic_python_flake8_args='--ignore=E125,E128,E202,E221,E231,E241,E251,E302,E501,E402'
-let g:syntastic_python_pyqver2_args = '-m 2.7 -l'
+let g:syntastic_python_pyqver2_args = '-m 2.5 -l'
 let g:syntastic_python_pyqver2_sort = 1
 let g:syntastic_enable_highlighting=1
 let g:syntastic_mode_map = { 'mode': 'active',
@@ -143,7 +143,7 @@ Plugin 'haya14busa/incsearch.vim'
 map /  <Plug>(incsearch-forward)
 map ?  <Plug>(incsearch-backward)
 map g/ <Plug>(incsearch-stay)
-let g:incsearch#auto_nohlsearch = 1
+"let g:incsearch#auto_nohlsearch = 1
 map n  <Plug>(incsearch-nohl-n)
 map N  <Plug>(incsearch-nohl-N)
 map *  <Plug>(incsearch-nohl-*)
@@ -331,6 +331,11 @@ map <F6> :cnext <CR>
 imap <F6> <ESC>:cnext <CR>i
 map <F7> :cprev <CR>
 imap <F7> <ESC>:cprev <CR>i
+
+map <F8> :lnext <CR>
+imap <F8> <ESC>:lnext <CR>i
+map <F9> :lprev <CR>
+imap <F9> <ESC>:lprev <CR>i
 
 " indent, but keep visual mode
 " http://vim.wikia.com/wiki/Shifting_blocks_visually

@@ -29,6 +29,8 @@
 " To list filetype detection
 " :autocmd filetypedetect
 "
+" Note that <f6> and <f7> map to cnext/cprev, aka next/prev quickfix items
+
 set nocompatible
 filetype off
 
@@ -41,7 +43,7 @@ set rtp+=~/.vim/bundle/Vundle.vim/
 call vundle#begin()
 
 " let Vundle manage Vundle
-" " required! 
+" " required!
 Plugin 'VundleVim/Vundle.vim'
 
 " ack.vim
@@ -89,7 +91,7 @@ Plugin 'bogado/file-line'
 Plugin 'alikins/vim-fix-git-diff-path'
 Plugin 'airblade/vim-rooter'
 Plugin 'tpope/vim-git'
-Plugin 'vim-ruby/vim-ruby'
+"Plugin 'vim-ruby/vim-ruby'
 Plugin 'pangloss/vim-javascript'
 Plugin 'wgwoods/vim-scripts', {'name': 'vim-wgwoods-fedora'}
 Plugin 'alikins/vim-buildr'

@@ -317,6 +317,7 @@ highlight DiffAdd    cterm=bold ctermfg=10 ctermbg=17 gui=none guifg=bg guibg=Re
 highlight DiffDelete cterm=bold ctermfg=10 ctermbg=17 gui=none guifg=bg guibg=Red
 highlight DiffChange cterm=bold ctermfg=10 ctermbg=17 gui=none guifg=bg guibg=Red
 highlight DiffText   cterm=bold ctermfg=10 ctermbg=88 gui=none guifg=bg guibg=Red
+highlight nonascii guibg=Red ctermbg=1 term=standout
 
 " use :w!! to write to a file using sudo if you forgot to 'sudo vim file'
 " (it will prompt for sudo password when writing)
@@ -363,7 +364,6 @@ filetype plugin indent on " Turn on filetype plugins (:help filetype-plugin)
 
 set laststatus=2  " always show the status bar
 
-highlight nonascii guibg=Red ctermbg=1 term=standout
 
 " Start the status line
 "set statusline=%f\ %m\ %r

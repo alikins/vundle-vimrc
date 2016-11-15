@@ -58,7 +58,7 @@ let g:ack_default_options = " -H --nocolor --nogroup --column"
 " syntastic
 Plugin 'scrooloose/syntastic'
 let g:syntastic_always_populate_loc_list = 0
-let g:syntastic_auto_loc_list = 1
+let g:syntastic_auto_loc_list = 0
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
 let g:syntastic_enable_highlighting = 1
@@ -68,14 +68,16 @@ let g:syntastic_check_on_open=1
 
 
 let g:syntastic_aggregate_errors = 1
-let g:syntastic_python_flake8_args='--ignore=E125,E128,E202,E221,E231,E241,E251,E302,E501,E402'
-let g:syntastic_python_pyqver2_args = '-m 2.7 -l'
+"let g:syntastic_python_flake8_args='--ignore=E125,E128,E202,E221,E231,E241,E251,E265,E302,E402,E501'
+let g:syntastic_python_flake8_args='--ignore=E125,E128,E265,E402,E501'
+let g:syntastic_python_pyqver2_args = '-m 2.5 -l'
 let g:syntastic_python_pyqver2_sort = 1
 let g:syntastic_enable_highlighting=1
 let g:syntastic_mode_map = { 'mode': 'active',
                            \ 'active_filetypes': ['ruby','python', 'sh', 'puppet'],
                            \ 'passive_filetypes': [] }
 let g:syntastic_python_checkers = ['flake8', 'pyqver2']
+"let g:syntastic_python_checkers = ['pyqver2']
 
 "let g:syntastic_python_checker_args='--ignore=E501,E121,E122,E123,E124,E125,E126,E127,E128'
 "let g:syntastic_python_checkers = ['flake8', 'pylint', 'pyqver']
@@ -114,6 +116,8 @@ Plugin 'jeetsukumaran/vim-buffergator'
 let g:buffergator_suppress_keymaps = 1
 nnoremap <silent> <Leader>b :BuffergatorToggle<CR>
 nnoremap <silent> <Leader>t :BuffergatorTabsToggle<CR>
+let g:buffergator_viewport_split_policy = "T"
+let g:buffergator_sort_regime = "filepath"
 
 "Plugin 'kien/ctrlp.vim'
 Plugin 'ctrlpvim/ctrlp.vim'
@@ -143,7 +147,7 @@ Plugin 'haya14busa/incsearch.vim'
 map /  <Plug>(incsearch-forward)
 map ?  <Plug>(incsearch-backward)
 map g/ <Plug>(incsearch-stay)
-let g:incsearch#auto_nohlsearch = 1
+"let g:incsearch#auto_nohlsearch = 1
 map n  <Plug>(incsearch-nohl-n)
 map N  <Plug>(incsearch-nohl-N)
 map *  <Plug>(incsearch-nohl-*)
@@ -175,6 +179,7 @@ Plugin 'thirtythreeforty/lessspace.vim'
 
 Plugin 'Valloric/YouCompleteMe'
 let g:ycm_autoclose_preview_window_after_completion = 1
+let g:ycm_min_num_of_chars_for_completion = 99
 
 Plugin 'majutsushi/tagbar'
 nnoremap <silent> <Leader>rt :TagbarToggle<CR>
@@ -280,7 +285,10 @@ set shiftwidth=4
 " List chars
 set list
 set listchars=""                  " Reset the listchars
-set listchars=tab:\ \             " a tab should display as "  ", trailing whitespace as "."
+"set listchars=tab:__
+" a tab should display as "  ", trailing whitespace as "."
+set listchars=tab:\ \
+"set listchars+=space:.             " whitespace as .
 set listchars+=trail:.            " show trailing spaces as dots
 set listchars+=extends:>          " The character to show in the last column when wrap is
                                   " off and the line continues beyond the right of the screen

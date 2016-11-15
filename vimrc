@@ -307,7 +307,8 @@ set undodir=~/.vim/state/undo/         " where to put undo files
 set nofoldenable
 " or number lines. Every f'in plugin tries to turn this back on.
 set nonumber
-
+set wildmenu
+set wildmode=longest:longest,full
 
 colorscheme molokai
 
@@ -338,6 +339,11 @@ map <F6> :cnext <CR>
 imap <F6> <ESC>:cnext <CR>i
 map <F7> :cprev <CR>
 imap <F7> <ESC>:cprev <CR>i
+
+map <F8> :lnext <CR>
+imap <F8> <ESC>:lnext <CR>i
+map <F9> :lprev <CR>
+imap <F9> <ESC>:lprev <CR>i
 
 " indent, but keep visual mode
 " http://vim.wikia.com/wiki/Shifting_blocks_visually

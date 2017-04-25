@@ -14,6 +14,11 @@
 " :reg to show cut things
 " "<number>p to paste that cut
 " v visual mode, y to yank, p to paste, d to delete
+" ggVG , select whole buffer (select all)
+" "y+,  yank to system clipboard ([shift] ctrl-v to paste)
+" "y*   yank to system selection (middle click to paste)
+" "+p  paste from system clipboard  (current mouse select)
+" "*p paste from system selection
 " and mostly working ctrl-c/x/v
 " c-c g  goto def in python (repo)
 " ctrl-]  find tag, including in help
@@ -30,6 +35,28 @@
 " :autocmd filetypedetect
 "
 " Note that <f6> and <f7> map to cnext/cprev, aka next/prev quickfix items
+" To save a 'session'
+" :mksession /path/to/session.vim
+"
+" To restore:
+"    vim -S /path/to/session.vim
+" or from already open vim
+" :source /path/to/session.vim
+"
+" # show the current value of a setting
+" :set some_setting?
+" # set a setting to a value
+" :set some_setting value
+"# show the current value of a variable
+" :let var_name
+" # show all vars
+" :let
+" # show all buffer local
+" :let b:
+" # set/let a variable to a value
+" :let variable_name = value
+" # buffer scope
+" :let g:variable_name = value
 
 set nocompatible
 filetype off
@@ -58,27 +85,29 @@ let g:ack_default_options = " -H --nocolor --nogroup --column"
 
 
 " syntastic
-Plugin 'scrooloose/syntastic'
+"Plugin 'scrooloose/syntastic'
 let g:syntastic_always_populate_loc_list = 0
 let g:syntastic_auto_loc_list = 0
-let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_open = 0
 let g:syntastic_check_on_wq = 0
 let g:syntastic_enable_highlighting = 1
 let g:syntastic_enable_balloons = 0
 let g:syntastic_enable_signs=1
-let g:syntastic_check_on_open=1
 
 
 let g:syntastic_aggregate_errors = 1
 "let g:syntastic_python_flake8_args='--ignore=E125,E128,E202,E221,E231,E241,E251,E265,E302,E402,E501'
 let g:syntastic_python_flake8_args='--ignore=E125,E128,E265,E402,E501'
-let g:syntastic_python_pyqver2_args = '-m 2.5 -l'
+let g:syntastic_python_pyqver2_args = '-m 2.7 -l'
 let g:syntastic_python_pyqver2_sort = 1
 let g:syntastic_enable_highlighting=1
 let g:syntastic_mode_map = { 'mode': 'active',
                            \ 'active_filetypes': ['ruby','python', 'sh', 'puppet'],
                            \ 'passive_filetypes': [] }
-let g:syntastic_python_checkers = ['flake8', 'pyqver2']
+"let g:syntastic_python_checkers = ['ansible_test', 'flake8', 'pyqver2']
+"let g:syntastic_python_checkers = ['flake8', 'pyqver2']
+let g:syntastic_python_checkers = ['flake8']
+"let g:syntastic_python_flake8_exec = "~/src/ansible/test/runner/ansible-test sanity --lint"
 "let g:syntastic_python_checkers = ['pyqver2']
 
 "let g:syntastic_python_checker_args='--ignore=E501,E121,E122,E123,E124,E125,E126,E127,E128'
@@ -179,9 +208,9 @@ let g:indentLine_char = '┆'
 " clenaup whitespace on exit, but only on lines we've changed
 Plugin 'thirtythreeforty/lessspace.vim'
 
-Plugin 'Valloric/YouCompleteMe'
-let g:ycm_autoclose_preview_window_after_completion = 1
-let g:ycm_min_num_of_chars_for_completion = 99
+"Plugin 'Valloric/YouCompleteMe'
+"let g:ycm_autoclose_preview_window_after_completion = 1
+"let g:ycm_min_num_of_chars_for_completion = 99
 
 Plugin 'majutsushi/tagbar'
 nnoremap <silent> <Leader>rt :TagbarToggle<CR>
@@ -192,6 +221,22 @@ let g:tagbar_type_ansible = {
     \ ],
     \ 'sort' : 0
 \ }
+
+"https://github.com/tpope/vim-fugitive
+Plugin 'tpope/vim-fugitive'
+
+"\   'python': ['flake8', 'pylint'],
+" https://github.com/w0rp/ale
+Plugin 'w0rp/ale'
+let g:ale_python_pylint_options = '-rcfile=~/.pylintrc'
+let g:ale_python_flake8_executable = 'flake8a'
+"let g:ale_python_flake8_args = '--max-line-length=160 --config=~/.tox.ini.flake8'
+let g:ale_linters = {
+\   'python': ['flake8'],
+\}
+
+" https://github.com/davidhalter/jedi-vim
+Plugin 'davidhalter/jedi-vim'
 
 " color schemes
 Plugin 'altercation/vim-colors-solarized'
@@ -263,7 +308,7 @@ set cmdheight=2
 set backspace=indent,eol,start  " backspace for dummys
 
 "set listchars=""
-set history=1000
+set history=10000
 
 set ruler
 set rulerformat=%30(%=\:b%n%y%m%r%w\ %l,%c%V\ %P%)
@@ -287,15 +332,18 @@ set shiftwidth=4
 " List chars
 set list
 set listchars=""                  " Reset the listchars
-"set listchars=tab:__
 " a tab should display as "  ", trailing whitespace as "."
-set listchars=tab:\ \
-"set listchars+=space:.             " whitespace as .
-set listchars+=trail:.            " show trailing spaces as dots
-set listchars+=extends:>          " The character to show in the last column when wrap is
-                                  " off and the line continues beyond the right of the screen
-set listchars+=precedes:<         " The character to show in the last column when wrap is
+set listchars+=tab:\ \ 
+" whitespace as .
+set listchars+=space:\ 
+"set listchars+=trail:\ 
 
+"set listchars+=trail:··
+"set listchars+=trail:.            " show trailing spaces as dots
+"set listchars+=extends:>          " The character to show in the last column when wrap is
+                                  " off and the line continues beyond the right of the screen
+"set listchars+=precedes:<         " The character to show in the last column when wrap is
+"set showbreak
 set hlsearch    " highlight matches
 "set incsearch   " incremental searching
 

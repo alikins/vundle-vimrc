@@ -78,7 +78,8 @@ Plugin 'mileszs/ack.vim'
 " Ack for word under cursor
 " http://vimbits.com/bits/19
 nnoremap <leader>a *<C-o>:AckFromSearch!<CR>
-let g:ack_default_options = " -H --nocolor --nogroup --column"
+"let g:ack_default_options = " --with-filename --nocolor --nogroup --column"
+let g:ackprg = "ag --vimgrep"
 " 'q' in quickfix window closes it
 " Note that <f6> and <f7> map to cnext/cprev, aka next/prev quickfix items
 " TODO: add global keymap to do it
@@ -96,8 +97,8 @@ let g:syntastic_enable_signs=1
 
 
 let g:syntastic_aggregate_errors = 1
-"let g:syntastic_python_flake8_args='--ignore=E125,E128,E202,E221,E231,E241,E251,E265,E302,E402,E501'
-let g:syntastic_python_flake8_args='--ignore=E125,E128,E265,E402,E501'
+let g:syntastic_python_flake8_args='--ignore=E125,E128,E202,E221,E231,E241,E251,E302,E501,E402'
+"let g:syntastic_python_pyqver2_args = '-m 2.5 -l'
 let g:syntastic_python_pyqver2_args = '-m 2.7 -l'
 let g:syntastic_python_pyqver2_sort = 1
 let g:syntastic_enable_highlighting=1
@@ -145,6 +146,8 @@ let g:pymode_rope_regenerate_on_write = 0
 Plugin 'jeetsukumaran/vim-buffergator'
 " toggle instead of open to match nerdtree and tabbar patters
 let g:buffergator_suppress_keymaps = 1
+let g:buffergator_display_regime = 'parentdir'
+let g:buffergator_sort_regime = 'mru'
 nnoremap <silent> <Leader>b :BuffergatorToggle<CR>
 nnoremap <silent> <Leader>t :BuffergatorTabsToggle<CR>
 let g:buffergator_viewport_split_policy = "T"
@@ -208,9 +211,13 @@ let g:indentLine_char = '┆'
 " clenaup whitespace on exit, but only on lines we've changed
 Plugin 'thirtythreeforty/lessspace.vim'
 
-"Plugin 'Valloric/YouCompleteMe'
-"let g:ycm_autoclose_preview_window_after_completion = 1
-"let g:ycm_min_num_of_chars_for_completion = 99
+Plugin 'Valloric/YouCompleteMe'
+let g:ycm_autoclose_preview_window_after_completion = 1
+let g:ycm_min_num_of_chars_for_completion = 5
+let g:ycm_min_num_identifier_candidate_chars = 5
+let g:ycm_collect_identifiers_from_tags_files = 1
+let g:ycm_server_keep_logfiles = 0
+let g:ycm_key_list_select_completion = ['<TAB>']
 
 Plugin 'majutsushi/tagbar'
 nnoremap <silent> <Leader>rt :TagbarToggle<CR>
@@ -238,9 +245,12 @@ let g:ale_linters = {
 " https://github.com/davidhalter/jedi-vim
 Plugin 'davidhalter/jedi-vim'
 
+Plugin 'eapache/rainbow_parentheses.vim'
+
 " color schemes
 Plugin 'altercation/vim-colors-solarized'
 Plugin 'tomasr/molokai'
+
 
 "
 " Auditions
@@ -460,4 +470,8 @@ if has("autocmd")
 
   "autocmd BufNewFile,BufRead */src/ansible/*.py set ft=python.ansible_src
   "autocmd FileType ansible_src let b:pymode_trim_whitespaces = 0
+  "  au VimEnter * RainbowParenthesesToggle
+  " au Syntax * RainbowParenthesesLoadRound
+  " au Syntax * RainbowParenthesesLoadSquare
+  "  au Syntax * RainbowParenthesesLoadBraces
 endif

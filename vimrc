@@ -23,14 +23,19 @@
 " c-c g  goto def in python (repo)
 " ctrl-]  find tag, including in help
 " <leader>a ack for word under cursor
-" <leader>s s/// for word under cursor
+" <leader>s s/// for to replace word under cursor
+" (visual select) '>' and '<' to move selection default amount l or r
 " macro
 "    qq  start recording macro and store in register 'a'
 "    q to stop
 "    @q to play it back
 "    @@ to repeat it
 "
-" \/ nerd comment toggle
+" vim-commentary comment
+" gcc  - [un]comment a line
+" gc   - [un]comment visual
+" gcap - [un]comment paragraph
+"
 " To list filetype detection
 " :autocmd filetypedetect
 "
@@ -78,55 +83,37 @@ Plugin 'mileszs/ack.vim'
 " Ack for word under cursor
 " http://vimbits.com/bits/19
 nnoremap <leader>a *<C-o>:AckFromSearch!<CR>
-let g:ack_default_options = " -H --nocolor --nogroup --column"
+" ag-sort is just shell wrapper for ag | sort.
+" Sorting is slower, but more useful overall
+let g:ackprg = "ag-sort --vimgrep"
+" let g:ack_default_options = " -H --nocolor --nogroup --column"
 " 'q' in quickfix window closes it
 " Note that <f6> and <f7> map to cnext/cprev, aka next/prev quickfix items
 " TODO: add global keymap to do it
 
+" maybe replace vim-ack?
+" https://github.com/mhinz/vim-grepper
+Plugin 'mhinz/vim-grepper'
+"nnoremap <leader>a :Grepper -tool ag -cword -noprompt<cr>
+nmap gs <plug>(GrepperOperator)
+" let g:grepper.ag = 'ag --vimgrep --path-to-ignore ./.ignore'
+" command! ack :Grepper -tool git -query %<cr>
+" cmap ack Grepper - %
 
-" syntastic
-"Plugin 'scrooloose/syntastic'
-let g:syntastic_always_populate_loc_list = 0
-let g:syntastic_auto_loc_list = 0
-let g:syntastic_check_on_open = 0
-let g:syntastic_check_on_wq = 0
-let g:syntastic_enable_highlighting = 1
-let g:syntastic_enable_balloons = 0
-let g:syntastic_enable_signs=1
-
-
-let g:syntastic_aggregate_errors = 1
-"let g:syntastic_python_flake8_args='--ignore=E125,E128,E202,E221,E231,E241,E251,E265,E302,E402,E501'
-let g:syntastic_python_flake8_args='--ignore=E125,E128,E265,E402,E501'
-let g:syntastic_python_pyqver2_args = '-m 2.7 -l'
-let g:syntastic_python_pyqver2_sort = 1
-let g:syntastic_enable_highlighting=1
-let g:syntastic_mode_map = { 'mode': 'active',
-                           \ 'active_filetypes': ['ruby','python', 'sh', 'puppet'],
-                           \ 'passive_filetypes': [] }
-"let g:syntastic_python_checkers = ['ansible_test', 'flake8', 'pyqver2']
-"let g:syntastic_python_checkers = ['flake8', 'pyqver2']
-let g:syntastic_python_checkers = ['flake8']
-"let g:syntastic_python_flake8_exec = "~/src/ansible/test/runner/ansible-test sanity --lint"
-"let g:syntastic_python_checkers = ['pyqver2']
-
-"let g:syntastic_python_checker_args='--ignore=E501,E121,E122,E123,E124,E125,E126,E127,E128'
-"let g:syntastic_python_checkers = ['flake8', 'pylint', 'pyqver']
-"let g:syntastic_python_checkers = ['flake8']
-
-Plugin 'scrooloose/nerdcommenter'
 
 Plugin 'bogado/file-line'
 Plugin 'alikins/vim-fix-git-diff-path'
 Plugin 'airblade/vim-rooter'
 Plugin 'tpope/vim-git'
+
 "Plugin 'vim-ruby/vim-ruby'
 Plugin 'pangloss/vim-javascript'
 Plugin 'wgwoods/vim-scripts', {'name': 'vim-wgwoods-fedora'}
 Plugin 'alikins/vim-buildr'
 Plugin 'bling/vim-airline'
 
-Plugin 'klen/python-mode'
+" formerly Plugin 'klen/python-mode'
+Plugin 'python-mode/python-mode'
 " disable python folding
 let g:pymode_options = 0
 let g:pymode_folding = 0
@@ -140,6 +127,10 @@ let g:pymode_breakpoint_bind = '<leader>B'
 let g:pymode_trim_whitespaces = 0
 " too slow
 let g:pymode_rope_regenerate_on_write = 0
+let g:pymode_rope = 1
+let g:pymode_rope_completion = 1
+let g:pymode_syntax = 1
+let g:pymode_indent = 1
 
 
 Plugin 'jeetsukumaran/vim-buffergator'
@@ -186,9 +177,9 @@ map #  <Plug>(incsearch-nohl-#)
 map g* <Plug>(incsearch-nohl-g*)
 map g# <Plug>(incsearch-nohl-g#)
 
-" https://github.coPeeja/vim-cdo
+" https://github.com/Peeja/vim-cdo
 " http://vimcasts.org/episodes/project-wide-find-and-replace/
-Plugin 'Peeja/vim-cdo'
+"Plugin 'Peeja/vim-cdo'
 
 " https://github.com/pearofducks/ansible-vim
 Plugin 'pearofducks/ansible-vim'
@@ -228,15 +219,43 @@ Plugin 'tpope/vim-fugitive'
 "\   'python': ['flake8', 'pylint'],
 " https://github.com/w0rp/ale
 Plugin 'w0rp/ale'
-let g:ale_python_pylint_options = '-rcfile=~/.pylintrc'
-let g:ale_python_flake8_executable = 'flake8a'
+let g:ale_python_pylint_options = '-rcfile=~/.pylint-ansiblerc'
+"let g:ale_python_flake8_executable = 'flake8a'
+let g:ale_echo_msg_format = '%linter%:%severity%:%s'
+"let g:ale_python_flake8_executable = 'flake8b'
 "let g:ale_python_flake8_args = '--max-line-length=160 --config=~/.tox.ini.flake8'
 let g:ale_linters = {
-\   'python': ['flake8'],
+\   'python': ['flake8', 'pylint'],
 \}
+" let g:ale_virtualenv_dir_names = ['venvs', '.env', '.venv', 'env', 've-py3', 've', 'virtualenv', 'venv']
+" maybe need this enabled
+" let g:ale_python_flake8_executable = '/home/adrian/.local/bin/flake8'
+let g:ale_python_flake8_use_global = 1
+let g:ale_python_flake8_change_directory = 0
+" g:ale_use_global_executables
+
+" let g:ale_yaml_yamllint_options = '-d relaxed'
+" https://github.com/saltstack/salt-vim
+Plugin 'saltstack/salt-vim'
+
+" https://github.com/stephpy/vim-yaml
+Plugin 'stephpy/vim-yaml'
 
 " https://github.com/davidhalter/jedi-vim
-Plugin 'davidhalter/jedi-vim'
+"Plugin 'davidhalter/jedi-vim'
+"let g:jedi#smart_auto_mappings = 0
+"let g:jedi#show_call_signatures = 0
+
+"https://github.com/junegunn/fzf
+Plugin 'junegunn/fzf'
+Plugin 'junegunn/fzf.vim'
+
+" https://github.com/tpope/vim-commentary
+" Plugin 'timpope/vim-commentary'
+Plugin 'git@github.com:tpope/vim-commentary.git'
+
+" https://github.com/leafgarland/typescript-vim
+Plugin 'leafgarland/typescript-vim'
 
 " color schemes
 Plugin 'altercation/vim-colors-solarized'
@@ -276,6 +295,9 @@ Plugin 'tomasr/molokai'
 
 "https://github.com/alfredodeza/coveragepy.vim
 "Plugin 'alfredodeza/coveragepy.vim'
+
+"Plugin 'scrooloose/nerdcommenter'
+"let NERDDefaultAlign = 'start'
 
 call vundle#end()
 
@@ -329,14 +351,23 @@ set scrolloff=2
 set tabstop=4
 set shiftwidth=4
 
+
+
 " List chars
+
+"set list lcs=trail:·,tab:»·
 set list
-set listchars=""                  " Reset the listchars
+" set listchars=tab:\ \ ,trail:·,precedes:«,extends:»
+set listchars=tab:\ \ ,trail:␣,precedes:«,extends:»
+" set listchars=tab:»\ ,extends:›,precedes:‹,nbsp:·,trail:·
+" set listchars=                  " Reset the listchars
+"set listchars=trail:" "
 " a tab should display as "  ", trailing whitespace as "."
-set listchars+=tab:\ \ 
+" set listchars+=tab:\ \
+" set listchars+=tab:\ \
 " whitespace as .
-set listchars+=space:\ 
-"set listchars+=trail:\ 
+" set listchars+=space:\.\
+" set listchars+=trail:\
 
 "set listchars+=trail:··
 "set listchars+=trail:.            " show trailing spaces as dots
@@ -363,15 +394,24 @@ set wildmode=longest:longest,full
 colorscheme molokai
 
 highlight! link DiffText MatchParen
-highlight DiffAdd    cterm=bold ctermfg=10 ctermbg=17 gui=none guifg=bg guibg=Red
-highlight DiffDelete cterm=bold ctermfg=10 ctermbg=17 gui=none guifg=bg guibg=Red
-highlight DiffChange cterm=bold ctermfg=10 ctermbg=17 gui=none guifg=bg guibg=Red
-highlight DiffText   cterm=bold ctermfg=10 ctermbg=88 gui=none guifg=bg guibg=Red
+
+"highlight DiffAdd    cterm=bold ctermfg=10 ctermbg=17 gui=none guifg=bg guibg=Red
+"highlight DiffDelete cterm=bold ctermfg=10 ctermbg=17 gui=none guifg=bg guibg=Red
+"highlight DiffChange cterm=bold ctermfg=10 ctermbg=17 gui=none guifg=bg guibg=Red
+"highlight DiffText   cterm=bold ctermfg=10 ctermbg=88 gui=none guifg=bg guibg=Red
+
 highlight nonascii guibg=Red ctermbg=1 term=standout
+highlight NonText ctermfg=16 guifg=#4a4a59
+highlight ExtraWhitespace ctermbg=red guibg=red
 
 " use :w!! to write to a file using sudo if you forgot to 'sudo vim file'
 " (it will prompt for sudo password when writing)
 cmap w!! %!sudo tee > /dev/null %
+
+" insert python logger
+" imap <silent> <Leader>L log = logging.getLogger(__name__)
+" imap <silent> <Leader>CL self.log = logging.getLogger('%s.%s' % (__name__, self.__class__.__name__))
+
 
 " find merge conflict markers
 nmap <silent> <leader>fc <ESC>/\v^[<=>]{7}( .*\|$)<CR>
@@ -414,6 +454,11 @@ filetype plugin indent on " Turn on filetype plugins (:help filetype-plugin)
 
 set laststatus=2  " always show the status bar
 
+" from https://stackoverflow.com/a/1708936/781180
+" open ,e " open file relative to file in current buffer instead of project
+" and or, split and open
+" map ,e :e <C-R>=expand("%:p:h") . "/" <CR>
+" map ,s :split <C-R>=expand("%:p:h") . "/" <CR>
 
 " Start the status line
 "set statusline=%f\ %m\ %r
@@ -441,6 +486,9 @@ if has("autocmd")
   " highlist non ascii
   autocmd BufReadPost * syntax match nonascii "[^\u0000-\u007F]"
 
+  " Show trailing whitepace and spaces before a tab:
+  autocmd Syntax * syn match ExtraWhitespace /\s\+$\| \+\ze\t/
+
   " In Makefiles, use real tabs, not tabs expanded to spaces
   autocmd FileType make setlocal noexpandtab
 
@@ -455,8 +503,15 @@ if has("autocmd")
 
   " Remember last location in file, but not for commit messages.
   " see :help last-position-jump
-  autocmd BufReadPost * if &filetype !~ '^git\c' && line("'\"") > 0 && line("'\"") <= line("$")
-    \| exe "normal! g`\"" | endif
+  " autocmd BufReadPost * if &filetype !~ '^git\c' && line("'\"") > 0 && line("'\"") <= line("$")
+  "  \| exe "normal! g`\"" | endif
+
+  " autocmd Filetype gitcommit setlocal spell textwidth=72
+
+  " in git rebase commit list/edit window 'S' to cycle between pick/squash/etc
+  " and 's' to just use squash
+  autocmd Filetype gitrebase nnoremap <buffer> <silent> S :Cycle<CR>
+  autocmd Filetype gitrebase nnoremap <buffer> <silent> s :Squash<CR>
 
   "autocmd BufNewFile,BufRead */src/ansible/*.py set ft=python.ansible_src
   "autocmd FileType ansible_src let b:pymode_trim_whitespaces = 0

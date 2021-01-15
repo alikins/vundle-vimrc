@@ -112,20 +112,20 @@ Plugin 'wgwoods/vim-scripts', {'name': 'vim-wgwoods-fedora'}
 Plugin 'alikins/vim-buildr'
 Plugin 'bling/vim-airline'
 
-" formerly Plugin 'klen/python-mode'
+"" formerly Plugin 'klen/python-mode'
 Plugin 'python-mode/python-mode'
-" disable python folding
+"" disable python folding
 let g:pymode_options = 0
 let g:pymode_folding = 0
 let g:pymode_lint = 0
 let g:pymode_lint_on_write = 0
 let g:pymode_doc = 0
 let g:pymode_rope_complete_on_dot = 0
-" Key for set/unset breakpoint
-" \b conflicts with buffergator
+"" Key for set/unset breakpoint
+"" \b conflicts with buffergator
 let g:pymode_breakpoint_bind = '<leader>B'
 let g:pymode_trim_whitespaces = 0
-" too slow
+"" too slow
 let g:pymode_rope_regenerate_on_write = 0
 let g:pymode_rope = 1
 let g:pymode_rope_completion = 1
@@ -257,6 +257,22 @@ Plugin 'git@github.com:tpope/vim-commentary.git'
 " https://github.com/leafgarland/typescript-vim
 Plugin 'leafgarland/typescript-vim'
 
+" https://github.com/tpope/vim-surround
+Plugin 'tpope/vim-surround'
+
+" https://github.com/tpope/vim-repeat
+Plugin 'tpope/vim-repeat'
+
+" https://github.com/kana/vim-textobj-user
+" Plugin 'kana/vim-textobj-user'
+
+" https://vimawesome.com/plugin/vim-textobj-quote
+" https://github.com/reedes/vim-textobj-quote
+" Plugin 'reedes/vim-textobj-quote'
+" map <silent> <leader>qc <Plug>ReplaceWithCurly
+" map <silent> <leader>qs <Plug>ReplaceWithStraight
+
+"
 " color schemes
 Plugin 'altercation/vim-colors-solarized'
 Plugin 'tomasr/molokai'

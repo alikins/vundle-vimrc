@@ -3,14 +3,16 @@
 " h/l left/right j/k updown
 " b back word, w forward word
 " <Leader>rt  tagbar
-" command mode
 " ctrl-w <arrow> move to window
 " ctrl-h/j/k/l move to window
 " ctrl-w_ max/zoom this window
 " ctrl-w ctrl-o make current window only window on screen
+" ctrl-w cltr-w  cycle windows
+" command mode
 " :hide   hide current window
 " :ls show all buffers
-" ctrl-w cltr-w  cycle windows
+"
+" cut/past/yank/put/select/etc
 " :reg to show cut things
 " "<number>p to paste that cut
 " v visual mode, y to yank, p to paste, d to delete
@@ -20,11 +22,18 @@
 " "+p  paste from system clipboard  (current mouse select)
 " "*p paste from system selection
 " and mostly working ctrl-c/x/v
+"
+" movement etc
 " c-c g  goto def in python (repo)
 " ctrl-]  find tag, including in help
+"
+" custom leader actions
 " <leader>a ack for word under cursor
 " <leader>s s/// for to replace word under cursor
+"
+" visual
 " (visual select) '>' and '<' to move selection default amount l or r
+"
 " macro
 "    qq  start recording macro and store in register 'a'
 "    q to stop
@@ -62,6 +71,11 @@
 " :let variable_name = value
 " # buffer scope
 " :let g:variable_name = value
+" When an error message is displayed, but it is removed before you could read
+" it, you can see it again with: >
+"   :echo errmsg
+" Or view a list of recent messages with: >
+"   :messages
 
 set nocompatible
 filetype off
@@ -131,7 +145,8 @@ let g:pymode_rope = 1
 let g:pymode_rope_completion = 1
 let g:pymode_syntax = 1
 let g:pymode_indent = 1
-
+let g:pymode_virtualenv = 1
+" let g:pymode_virtualenv_path = $VIRTUAL_ENV
 
 Plugin 'jeetsukumaran/vim-buffergator'
 " toggle instead of open to match nerdtree and tabbar patters
@@ -219,7 +234,11 @@ Plugin 'tpope/vim-fugitive'
 "\   'python': ['flake8', 'pylint'],
 " https://github.com/w0rp/ale
 Plugin 'w0rp/ale'
-let g:ale_python_pylint_options = '-rcfile=~/.pylint-ansiblerc'
+" let g:ale_python_pylint_options = '--rcfile=~/.pylint-ansiblerc'
+let g:ale_python_pylint_options = '--load-plugins pylint_django --django-settings-module=galaxy_ng.app.alikins'
+let g:ale_python_pylint_use_global = 0
+let g:ale_python_pylint_change_directory = 1
+
 "let g:ale_python_flake8_executable = 'flake8a'
 let g:ale_echo_msg_format = '%linter%:%severity%:%s'
 "let g:ale_python_flake8_executable = 'flake8b'
@@ -230,7 +249,7 @@ let g:ale_linters = {
 " let g:ale_virtualenv_dir_names = ['venvs', '.env', '.venv', 'env', 've-py3', 've', 'virtualenv', 'venv']
 " maybe need this enabled
 " let g:ale_python_flake8_executable = '/home/adrian/.local/bin/flake8'
-let g:ale_python_flake8_use_global = 1
+let g:ale_python_flake8_use_global = 0
 let g:ale_python_flake8_change_directory = 0
 " g:ale_use_global_executables
 
@@ -272,6 +291,8 @@ Plugin 'tpope/vim-repeat'
 " map <silent> <leader>qc <Plug>ReplaceWithCurly
 " map <silent> <leader>qs <Plug>ReplaceWithStraight
 
+" https://github.com/raimon49/requirements.txt.vim
+Plugin 'raimon49/requirements.txt.vim'
 "
 " color schemes
 Plugin 'altercation/vim-colors-solarized'
@@ -489,6 +510,26 @@ function! s:setupWrapping()
 set linebreak
   set textwidth=72
   set nolist
+endfunction
+
+" just to the longest lint
+function! Jumptolongestline()
+  let lines = map(getline(1, '$'), 'len(v:val)')
+  return index(lines, max(lines))+1
+endfunction
+
+function MaxLine()
+    let maxcol = 0
+    let lnum = 1
+    while lnum <= line("$")
+        call cursor(lnum, 0)
+        if col("$") > maxcol
+            let maxcol = col("$")
+            let maxline = lnum
+        endif
+        let lnum += 1
+    endwhile
+    echo "Line" maxline "has" maxcol - 1 "characters"
 endfunction
 
 ""

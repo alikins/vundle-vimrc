@@ -85,15 +85,23 @@ filetype off
 
 let mapleader='\'
 
-set rtp+=~/.vim/bundle/Vundle.vim/
-call vundle#begin()
+" vim-plug https://github.com/junegunn/vim-plug to replace Vundle
+" Based on instructions from  https://repodev.com/blog/how-to-switch-from-vundle-to-vim-plug-the-easy-way
+" Amongst other things, plugins will live in ~/.vim/plugged/ now instead of
+" ~/.vim/bundle now
+" Install vim-plug if we don't already have it
+if empty(glob('~/.vim/autoload/plug.vim'))
+silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
+    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+endif
 
-" let Vundle manage Vundle
-" " required!
-Plugin 'VundleVim/Vundle.vim'
+call plug#begin('~/.vim/plugged')
+
+
 
 " ack.vim
-Plugin 'mileszs/ack.vim'
+Plug 'mileszs/ack.vim'
 " Ack for word under cursor
 " http://vimbits.com/bits/19
 nnoremap <leader>a *<C-o>:AckFromSearch!<CR>
@@ -107,7 +115,7 @@ let g:ackprg = "ag-sort --vimgrep"
 
 " maybe replace vim-ack?
 " https://github.com/mhinz/vim-grepper
-Plugin 'mhinz/vim-grepper'
+Plug 'mhinz/vim-grepper'
 "nnoremap <leader>a :Grepper -tool ag -cword -noprompt<cr>
 nmap gs <plug>(GrepperOperator)
 " let g:grepper.ag = 'ag --vimgrep --path-to-ignore ./.ignore'
@@ -115,19 +123,19 @@ nmap gs <plug>(GrepperOperator)
 " cmap ack Grepper - %
 
 
-Plugin 'bogado/file-line'
-Plugin 'alikins/vim-fix-git-diff-path'
-Plugin 'airblade/vim-rooter'
-Plugin 'tpope/vim-git'
+Plug 'bogado/file-line'
+Plug 'alikins/vim-fix-git-diff-path'
+Plug 'airblade/vim-rooter'
+Plug 'tpope/vim-git'
 
-"Plugin 'vim-ruby/vim-ruby'
-Plugin 'pangloss/vim-javascript'
-Plugin 'wgwoods/vim-scripts', {'name': 'vim-wgwoods-fedora'}
-Plugin 'alikins/vim-buildr'
-Plugin 'bling/vim-airline'
+"Plug 'vim-ruby/vim-ruby'
+Plug 'pangloss/vim-javascript'
+Plug 'wgwoods/vim-scripts', {'as': 'vim-wgwoods-fedora'}
+Plug 'alikins/vim-buildr'
+Plug 'bling/vim-airline'
 
-"" formerly Plugin 'klen/python-mode'
-Plugin 'python-mode/python-mode'
+"" formerly Plug 'klen/python-mode'
+Plug 'python-mode/python-mode'
 "" disable python folding
 let g:pymode_options = 0
 let g:pymode_folding = 0
@@ -148,7 +156,7 @@ let g:pymode_indent = 1
 let g:pymode_virtualenv = 1
 " let g:pymode_virtualenv_path = $VIRTUAL_ENV
 
-Plugin 'jeetsukumaran/vim-buffergator'
+Plug 'jeetsukumaran/vim-buffergator'
 " toggle instead of open to match nerdtree and tabbar patters
 let g:buffergator_suppress_keymaps = 1
 nnoremap <silent> <Leader>b :BuffergatorToggle<CR>
@@ -156,8 +164,8 @@ nnoremap <silent> <Leader>t :BuffergatorTabsToggle<CR>
 let g:buffergator_viewport_split_policy = "T"
 let g:buffergator_sort_regime = "filepath"
 
-"Plugin 'kien/ctrlp.vim'
-Plugin 'ctrlpvim/ctrlp.vim'
+"Plug 'kien/ctrlp.vim'
+Plug 'ctrlpvim/ctrlp.vim'
 "let g:ctrlp_map = "<c-p>"
 let g:ctrlp_cmd = 'CtrlPMixed'
 " open ctrl-P in dir of current file
@@ -176,11 +184,11 @@ let g:ctrlp_buftag_types = {
 
 "https://github.com/milkypostman/vim-togglelist
 " allows <leader>q to toggle quickfix (ack, etc)
-Plugin 'milkypostman/vim-togglelist'
+Plug 'milkypostman/vim-togglelist'
 
 " http://usevim.com/2014/10/20/incsearch/
 " https://github.com/haya14busa/incsearch.vim
-Plugin 'haya14busa/incsearch.vim'
+Plug 'haya14busa/incsearch.vim'
 map /  <Plug>(incsearch-forward)
 map ?  <Plug>(incsearch-backward)
 map g/ <Plug>(incsearch-stay)
@@ -194,31 +202,31 @@ map g# <Plug>(incsearch-nohl-g#)
 
 " https://github.com/Peeja/vim-cdo
 " http://vimcasts.org/episodes/project-wide-find-and-replace/
-"Plugin 'Peeja/vim-cdo'
+"Plug 'Peeja/vim-cdo'
 
 " https://github.com/pearofducks/ansible-vim
-Plugin 'pearofducks/ansible-vim'
+Plug 'pearofducks/ansible-vim'
 
 "https://github.com/PeterRincker/vim-bumblebee
-Plugin 'PeterRincker/vim-bumblebee'
+Plug 'PeterRincker/vim-bumblebee'
 
 "https://github.com/tpope/vim-haystack
-"Plugin 'tpope/vim-haystack'
+"Plug 'tpope/vim-haystack'
 
 " Show a vert line between indent blocks
-Plugin 'Yggdroot/indentLine'
+Plug 'Yggdroot/indentLine'
 let g:indentLine_char = '┆'
 " To toggle: ':IndentLinesToggle'
 
 " https://github.com/thirtythreeforty/lessspace.vim
 " clenaup whitespace on exit, but only on lines we've changed
-Plugin 'thirtythreeforty/lessspace.vim'
+Plug 'thirtythreeforty/lessspace.vim'
 
-"Plugin 'Valloric/YouCompleteMe'
+"Plug 'Valloric/YouCompleteMe'
 "let g:ycm_autoclose_preview_window_after_completion = 1
 "let g:ycm_min_num_of_chars_for_completion = 99
 
-Plugin 'majutsushi/tagbar'
+Plug 'majutsushi/tagbar'
 nnoremap <silent> <Leader>rt :TagbarToggle<CR>
 let g:tagbar_type_ansible = {
     \ 'ctagstype' : 'ansible',
@@ -229,11 +237,11 @@ let g:tagbar_type_ansible = {
 \ }
 
 "https://github.com/tpope/vim-fugitive
-Plugin 'tpope/vim-fugitive'
+Plug 'tpope/vim-fugitive'
 
 "\   'python': ['flake8', 'pylint'],
 " https://github.com/w0rp/ale
-Plugin 'w0rp/ale'
+Plug 'w0rp/ale'
 " let g:ale_python_pylint_options = '--rcfile=~/.pylint-ansiblerc'
 let g:ale_python_pylint_options = '--load-plugins pylint_django --django-settings-module=galaxy_ng.app.alikins'
 let g:ale_python_pylint_use_global = 0
@@ -255,48 +263,48 @@ let g:ale_python_flake8_change_directory = 0
 
 " let g:ale_yaml_yamllint_options = '-d relaxed'
 " https://github.com/saltstack/salt-vim
-Plugin 'saltstack/salt-vim'
+Plug 'saltstack/salt-vim'
 
 " https://github.com/stephpy/vim-yaml
-Plugin 'stephpy/vim-yaml'
+Plug 'stephpy/vim-yaml'
 
 " https://github.com/davidhalter/jedi-vim
-"Plugin 'davidhalter/jedi-vim'
+"Plug 'davidhalter/jedi-vim'
 "let g:jedi#smart_auto_mappings = 0
 "let g:jedi#show_call_signatures = 0
 
 "https://github.com/junegunn/fzf
-Plugin 'junegunn/fzf'
-Plugin 'junegunn/fzf.vim'
+Plug 'junegunn/fzf'
+Plug 'junegunn/fzf.vim'
 
 " https://github.com/tpope/vim-commentary
-" Plugin 'timpope/vim-commentary'
-Plugin 'git@github.com:tpope/vim-commentary.git'
+" Plug 'timpope/vim-commentary'
+Plug 'git@github.com:tpope/vim-commentary.git'
 
 " https://github.com/leafgarland/typescript-vim
-Plugin 'leafgarland/typescript-vim'
+Plug 'leafgarland/typescript-vim'
 
 " https://github.com/tpope/vim-surround
-Plugin 'tpope/vim-surround'
+Plug 'tpope/vim-surround'
 
 " https://github.com/tpope/vim-repeat
-Plugin 'tpope/vim-repeat'
+Plug 'tpope/vim-repeat'
 
 " https://github.com/kana/vim-textobj-user
-" Plugin 'kana/vim-textobj-user'
+" Plug 'kana/vim-textobj-user'
 
 " https://vimawesome.com/plugin/vim-textobj-quote
 " https://github.com/reedes/vim-textobj-quote
-" Plugin 'reedes/vim-textobj-quote'
+" Plug 'reedes/vim-textobj-quote'
 " map <silent> <leader>qc <Plug>ReplaceWithCurly
 " map <silent> <leader>qs <Plug>ReplaceWithStraight
 
 " https://github.com/raimon49/requirements.txt.vim
-Plugin 'raimon49/requirements.txt.vim'
+Plug 'raimon49/requirements.txt.vim'
 "
 " color schemes
-Plugin 'altercation/vim-colors-solarized'
-Plugin 'tomasr/molokai'
+Plug 'altercation/vim-colors-solarized'
+Plug 'tomasr/molokai'
 
 "
 " Auditions
@@ -304,39 +312,40 @@ Plugin 'tomasr/molokai'
 "
 " under review
 
-"Plugin 'mattn/webapi-vim'
+"Plug 'mattn/webapi-vim'
 
-"Plugin 'mmozuras/vim-github-comment'
+"Plug 'mmozuras/vim-github-comment'
 "let g:github_user = 'alikins'
 
 "https://github.com/tpope/vim-haystack
-"Plugin 'tpope/vim-haystack'
+"Plug 'tpope/vim-haystack'
 
 "https://github.com/PeterRincker/vim-bumblebee
-"Plugin 'PeterRincker/vim-bumblebee'
+"Plug 'PeterRincker/vim-bumblebee'
 
-"Plugin 'junkblocker/patchreview-vim'
-"Plugin 'Valloric/YouCompleteMe'
+"Plug 'junkblocker/patchreview-vim'
+"Plug 'Valloric/YouCompleteMe'
 
-"Plugin 'ameade/qtpy-vim'
+"Plug 'ameade/qtpy-vim'
 
-"Plugin 'JarrodCTaylor/vim-python-test-runner'
+"Plug 'JarrodCTaylor/vim-python-test-runner'
 
 "https://github.com/lamndalisure/nose.vom
 "A simple compiler for using nosetests on VIM
-"Plugin 'lambdalisue/nose.vim'
+"Plug 'lambdalisue/nose.vim'
 
 "https://github.com/mattboehm/vim-unstack
 "Vim plugin for parsing stack traces and opening the files
-"Plugin 'mattboehm/vim-unstack'
+"Plug 'mattboehm/vim-unstack'
 
 "https://github.com/alfredodeza/coveragepy.vim
-"Plugin 'alfredodeza/coveragepy.vim'
+"Plug 'alfredodeza/coveragepy.vim'
 
-"Plugin 'scrooloose/nerdcommenter'
+"Plug 'scrooloose/nerdcommenter'
 "let NERDDefaultAlign = 'start'
 
-call vundle#end()
+" END OF PLUGIN loading and config
+call plug#end()
 
 filetype plugin indent on
 
